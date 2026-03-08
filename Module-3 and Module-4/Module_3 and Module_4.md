@@ -20,7 +20,24 @@ Wireshark was used to capture network packets and analyze Ethernet frames. The c
 
 Capture and analyze Ethernet frames using Wireshark. Inspect the structure of the frame, including destination and source MAC addresses, Ethertype, payload, and FCS. Use GNS3 or Packet Tracer to simulate network traffic.
 
-Configure static IP addresses, modify MAC addresses, and verify network connectivityusing ping and ifconfig commands.
+Cisco Packet Tracer was used to simulate network traffic:
+<img width="273" height="280" alt="5" src="https://github.com/user-attachments/assets/14114dc8-abbf-4f03-acb6-399d8b74cfd4" />
+<img width="592" height="453" alt="6" src="https://github.com/user-attachments/assets/d63bddb6-5695-40f2-ba93-a731676988df" />
+
+Ethernet frames were captured using Wireshark and analyzed to understand their structure.
+
+The Ethernet frame consists of several important fields:
+ - Destination MAC address: identifies the receiving device
+ - Source MAC address: identifies the transmitting device.
+ - EtherType field: specifies the protocol encapsulated in the payload, such as IPv4, ARP, or IPv6.
+ - Payload: contains the actual data being transmitted, which may include IP packets, TCP segments, or application data.
+ - Frame Check Sequence (FCS): used for error detection to ensure that the frame was transmitted without corruption.
+
+Wireshark was used to inspect these fields and analyze how data is transmitted at the Ethernet layer.
+<img width="1918" height="1017" alt="7" src="https://github.com/user-attachments/assets/74ca9738-6e2a-4bf6-8439-32a73ece747a" />
+
+
+Configure static IP addresses, modify MAC addresses, and verify network connectivity using ping and ifconfig commands.
 
 Troubleshoot Ethernet Communication with ping and traceroute -> Using cisco packet tracer:
 Create a simple LAN setup with two Linux machines connected via a switch.
