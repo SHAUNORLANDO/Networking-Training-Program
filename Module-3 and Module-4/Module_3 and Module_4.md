@@ -85,6 +85,7 @@ The issue was resolved by restoring the original MAC address of the interface. A
 <br>
 Reference:
 https://www.kernel.org/doc/html/latest/networking/
+<br>
 
 **Describe how you would configure a basic LAN interface using the ip command in Linux
 (kernel.org).** <br>
