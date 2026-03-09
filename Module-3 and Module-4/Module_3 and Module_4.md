@@ -106,7 +106,7 @@ ip link
 ```
 <br>
 <img width="1032" height="200" alt="16" src="https://github.com/user-attachments/assets/45f49804-c462-45df-a94b-3eb8b6a73189" />
-<br>
+ 
 **Use the bridge or ip link commands to inspect the MAC table and demonstrate a basic switch's operation.** <br>
 Commands: <br>
 Inspecting neigbour ARP table:
