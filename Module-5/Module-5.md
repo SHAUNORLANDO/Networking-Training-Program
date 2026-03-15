@@ -77,7 +77,7 @@ Another device (my mobile phone) was configured with:
 | Default Gateway | 192.168.1.1 |
 | DNS Server | 8.8.8.8 |
 
-![IP_PHONE](ip_phone.png)
+![IP_PHONE](ip_phone.jpeg)
 
 Opened the properties of the active network adapter (Wi-Fi) and selected **Internet Protocol Version 4 (IPv4)**. Entered the static IP address, subnet mask, gateway, and DNS manually. Saved the configuration.
 
