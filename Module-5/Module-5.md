@@ -57,6 +57,33 @@ In this capture, the device **192.168.1.1** sends an ARP request to find the MAC
 
 3) Manually configure static IPs on the client devices(like Pc or your mobile phone) and verify connectivity using ping.
 
+The following static IP configuration was used for the PC:
+
+| Parameter | Value |
+|----------|------|
+| IP Address | 192.168.1.100 |
+| Subnet Mask | 255.255.255.0 |
+| Default Gateway | 192.168.1.1 |
+| DNS Server | 8.8.8.8 |
+
+![IP_PC](ip_pc.png)
+
+Another device (my mobile phone) was configured with:
+
+| Parameter | Value |
+|----------|------|
+| IP Address | 192.168.1.101 |
+| Subnet Mask | 255.255.255.0 |
+| Default Gateway | 192.168.1.1 |
+| DNS Server | 8.8.8.8 |
+
+![IP_PHONE](ip_phone.png)
+
+Opened the properties of the active network adapter (Wi-Fi) and selected **Internet Protocol Version 4 (IPv4)**. Entered the static IP address, subnet mask, gateway, and DNS manually. Saved the configuration.
+
+The connectivity between the devices was verified using the ping command through command prompt of PC.
+![IP_PING](ip_ping.png)
+
 
 4) Use Wireshark to capture DHCP Discover, Offer, Request, and Acknowledge messages and explain the process.
 
