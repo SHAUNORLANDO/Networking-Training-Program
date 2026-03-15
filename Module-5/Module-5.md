@@ -113,8 +113,46 @@ Assign IP addresses from these subnets to devices in Cisco Packet Tracer and ver
 Task: Identify the class of each IP address (Class A, B, or C). What is the default subnet mask for each class?
 Provide the range of IP addresses for each class.
 
+## Given IP Addresses
+1. 10.1.1.1  
+2. 172.16.5.10  
+3. 192.168.1.5
 
-7) In Cisco Packet Tracer, create a small network with multiple devices (e.g., 2 PCs and a router). Use private IP addresses (e.g., 192.168.1.x) on the PCs and configure the router to perform NAT to allow the PCs to access the internet.
+## IP Address Classes
+
+IP addresses in IPv4 are divided into different classes based on the **first octet** of the address.
+
+| Class | First Octet Range | Default Subnet Mask |
+|------|------------------|---------------------|
+| Class A | 1 – 126 | 255.0.0.0 |
+| Class B | 128 – 191 | 255.255.0.0 |
+| Class C | 192 – 223 | 255.255.255.0 |
+
+## Classification of Given IP Addresses
+
+| IP Address | Class | Default Subnet Mask |
+|------------|------|---------------------|
+| 10.1.1.1 | Class A | 255.0.0.0 |
+| 172.16.5.10 | Class B | 255.255.0.0 |
+| 192.168.1.5 | Class C | 255.255.255.0 |
+
+## Explanation
+
+### 1. 10.1.1.1
+The first octet is **10**, which falls in the range **1–126**, so it belongs to **Class A**.  
+The default subnet mask for Class A is **255.0.0.0**.
+
+### 2. 172.16.5.10
+The first octet is **172**, which falls in the range **128–191**, so it belongs to **Class B**.  
+The default subnet mask for Class B is **255.255.0.0**.
+
+### 3. 192.168.1.5
+The first octet is **192**, which falls in the range **192–223**, so it belongs to **Class C**.  
+The default subnet mask for Class C is **255.255.255.0**.
+
+---
+
+8) In Cisco Packet Tracer, create a small network with multiple devices (e.g., 2 PCs and a router). Use private IP addresses (e.g., 192.168.1.x) on the PCs and configure the router to perform NAT to allow the PCs to access the internet.
 Task: Test the NAT configuration by pinging an external IP address from the PCs and capture the traffic using Wireshark.
 What is the source IP address before and after NAT?
 Note:
