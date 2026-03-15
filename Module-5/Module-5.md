@@ -71,6 +71,9 @@ So, generated DHCP traffic by releasing and renewing the IP address using:
 ipconfig /release
 ipconfig /renew
 ```
+Observed the following captured packets in Wireshark:
+![DHCP DORA](dora.png)
+
 The DHCP protocol follows a four-step process called **DORA**.
 
 ### 1. Discover
