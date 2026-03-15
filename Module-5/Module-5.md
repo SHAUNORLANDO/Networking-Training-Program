@@ -86,17 +86,17 @@ It sends a **DHCP Discover** message as a broadcast to find available DHCP serve
 The DHCP server responds with a **DHCP Offer** message.  
 This message contains an available IP address and other network configuration details.
 
-![DHCP Offer](images/dora_o.png)
+![DHCP Offer](dora_o.png)
 
 ### 3. Request
 The client sends a **DHCP Request** message to the server indicating that it wants to use the offered IP address.
 
-![DHCP Request](images/dora_r.png)
+![DHCP Request](dora_r.png)
 
 ### 4. Acknowledge
 Finally, the DHCP server sends a **DHCP Acknowledge (ACK)** message confirming the assignment of the IP address.
 
-![DHCP ACK](images/dora_a.png)
+![DHCP ACK](dora_a.png)
 
 The DORA process allows devices to automatically obtain an IP address and other network settings such as subnet mask, default gateway, and DNS server. This process happens quickly whenever a device connects to a DHCP-enabled network.
 
