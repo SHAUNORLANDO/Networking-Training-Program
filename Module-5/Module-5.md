@@ -237,9 +237,10 @@ Router1:
 ip route 192.168.1.0 255.255.255.192 10.0.0.1
 ip route 192.168.1.64 255.255.255.192 10.0.0.1
 ```
-Connectivity was tested using the ping command.
+Connectivity was tested using the ping command. <br>
 ![SUBNET_PING_!](subnet_ping_1.png)
 ![SUBNET_PING_2](subnet_ping_2.png)
+<br>
 Successful replies confirm that routing between different subnets is working correctly.
 
 ---
