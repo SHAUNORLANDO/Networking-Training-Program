@@ -135,6 +135,114 @@ The DHCP Discover, Offer, Request, and Acknowledge packets were successfully cap
 Task: Manually calculate the new subnet mask and the range of valid IP addresses for each subnet.
 Assign IP addresses from these subnets to devices in Cisco Packet Tracer and verify connectivity using ping between them.
 
+**Given Network Address:** 192.168.1.0/24
+**Subnet Mask:** 255.255.255.0
+**Total Hosts:** 256
+
+To create 4 subnets, 2 bits are borrowed from the host portion. (2^2 = 4 subnets)
+**New subnet prefix:** /26
+**New subnet mask:** 255.255.255.192
+
+## Subnet Table
+
+| Subnet | Network Address | First Host | Last Host | Broadcast |
+|------|------|------|------|------|
+| Subnet 1 | 192.168.1.0 | 192.168.1.1 | 192.168.1.62 | 192.168.1.63 |
+| Subnet 2 | 192.168.1.64 | 192.168.1.65 | 192.168.1.126 | 192.168.1.127 |
+| Subnet 3 | 192.168.1.128 | 192.168.1.129 | 192.168.1.190 | 192.168.1.191 |
+| Subnet 4 | 192.168.1.192 | 192.168.1.193 | 192.168.1.254 | 192.168.1.255 |
+
+Each subnet supports 62 usable host addresses.
+
+**Packet Tracer Implementation:**
+
+The network devices were connected in the following topology:
+ - 2 Routers
+ - 4 switches (1 switch per subnet)
+ - 8 PCs (2 PCs per subnet)
+
+![CISCO_SUBNET](subnet_1.png)
+
+**IP Address Assignment:**
+
+| Subnet | Device | IP Address | Subnet Mask | Default Gateway |
+|------|------|------|------|------|
+| Subnet 1 | Router0 Interface | 192.168.1.1 | 255.255.255.192 | — |
+| Subnet 1 | PC0 | 192.168.1.10 | 255.255.255.192 | 192.168.1.1 |
+| Subnet 1 | PC1 | 192.168.1.20 | 255.255.255.192 | 192.168.1.1 |
+| Subnet 2 | Router0 Interface | 192.168.1.65 | 255.255.255.192 | — |
+| Subnet 2 | PC2 | 192.168.1.70 | 255.255.255.192 | 192.168.1.65 |
+| Subnet 2 | PC3 | 192.168.1.80 | 255.255.255.192 | 192.168.1.65 |
+| Subnet 3 | Router1 Interface | 192.168.1.129 | 255.255.255.192 | — |
+| Subnet 3 | PC4 | 192.168.1.130 | 255.255.255.192 | 192.168.1.129 |
+| Subnet 3 | PC5 | 192.168.1.140 | 255.255.255.192 | 192.168.1.129 |
+| Subnet 4 | Router1 Interface | 192.168.1.193 | 255.255.255.192 | — |
+| Subnet 4 | PC6 | 192.168.1.200 | 255.255.255.192 | 192.168.1.193 |
+| Subnet 4 | PC7 | 192.168.1.210 | 255.255.255.192 | 192.168.1.193 |
+
+**Router Configuration:**
+
+Router0 Configuration
+```bash
+enable
+configure terminal
+```
+```bash
+interface g0/0
+ip address 192.168.1.1 255.255.255.192
+no shutdown
+```
+```bash
+interface g0/1
+ip address 192.168.1.65 255.255.255.192
+no shutdown
+```
+```bash
+interface g0/2
+ip address 10.0.0.1 255.255.255.252
+no shutdown
+```
+Router1 Configuration
+```bash
+enable
+configure terminal
+```
+```bash
+interface g0/0
+ip address 192.168.1.129 255.255.255.192
+no shutdown
+```
+```bash
+interface g0/1
+ip address 192.168.1.193 255.255.255.192
+no shutdown
+```
+```bash
+interface g0/2
+ip address 10.0.0.2 255.255.255.252
+no shutdown
+```
+
+**Static Routing Configuration:**
+
+To allow communication between routers and different subnets, static routes were configured.
+
+Router0:
+```bash
+ip route 192.168.1.128 255.255.255.192 10.0.0.2
+ip route 192.168.1.192 255.255.255.192 10.0.0.2
+```
+Router1:
+```bash
+ip route 192.168.1.0 255.255.255.192 10.0.0.1
+ip route 192.168.1.64 255.255.255.192 10.0.0.1
+```
+Connectivity was tested using the ping command.
+![SUBNET_PING_!](subnet_ping_1.png)
+![SUBNET_PING_2](subnet_ping_2.png)
+Successful replies confirm that routing between different subnets is working correctly.
+
+---
 
 6) You are given three IP addresses: 10.1.1.1, 172.16.5.10, and 192.168.1.5.
 Task: Identify the class of each IP address (Class A, B, or C). What is the default subnet mask for each class?
