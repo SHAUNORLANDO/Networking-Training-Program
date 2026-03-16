@@ -1,4 +1,4 @@
-**Networking Assessment - Module-5**
+# Networking Assessment - Module-5
 
 **1) Capture and analyze ARP packets using Wireshark. Inspect the ARP request and reply frames, and discuss the role of the sender's IP and MAC address in these packets.**
 
@@ -161,7 +161,7 @@ The network devices were connected in the following topology:
  - 4 switches (1 switch per subnet)
  - 8 PCs (2 PCs per subnet)
 
-![CISCO_SUBNET](subnet_1.png)
+![CISCO_SUBNET](subnet.png)
 
 **IP Address Assignment:**
 
@@ -249,14 +249,14 @@ Successful replies confirm that routing between different subnets is working cor
 Task: Identify the class of each IP address (Class A, B, or C). What is the default subnet mask for each class?
 Provide the range of IP addresses for each class.
 
-## Given IP Addresses
+**Given IP Addresses:**
 1. 10.1.1.1  
 2. 172.16.5.10  
 3. 192.168.1.5
 
-## IP Address Classes
+**IP Address Classes:**
 
-IP addresses in IPv4 are divided into different classes based on the **first octet** of the address.
+IP addresses in IPv4 are divided into different classes based on the first octet of the address.
 
 | Class | First Octet Range | Default Subnet Mask |
 |------|------------------|---------------------|
@@ -264,7 +264,7 @@ IP addresses in IPv4 are divided into different classes based on the **first oct
 | Class B | 128 – 191 | 255.255.0.0 |
 | Class C | 192 – 223 | 255.255.255.0 |
 
-## Classification of Given IP Addresses
+**Classification of Given IP Addresses:**
 
 | IP Address | Class | Default Subnet Mask |
 |------------|------|---------------------|
