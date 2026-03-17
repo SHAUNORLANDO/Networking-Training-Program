@@ -322,7 +322,7 @@ The default subnet mask for Class C is **255.255.255.0**.
 
 ---
 
-8) In Cisco Packet Tracer, create a small network with multiple devices (e.g., 2 PCs and a router). Use private IP addresses (e.g., 192.168.1.x) on the PCs and configure the router to perform NAT to allow the PCs to access the internet.
+7) In Cisco Packet Tracer, create a small network with multiple devices (e.g., 2 PCs and a router). Use private IP addresses (e.g., 192.168.1.x) on the PCs and configure the router to perform NAT to allow the PCs to access the internet.
 Task: Test the NAT configuration by pinging an external IP address from the PCs and capture the traffic using Wireshark.
 What is the source IP address before and after NAT?
 
