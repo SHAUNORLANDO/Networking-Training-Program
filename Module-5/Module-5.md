@@ -325,6 +325,84 @@ The default subnet mask for Class C is **255.255.255.0**.
 8) In Cisco Packet Tracer, create a small network with multiple devices (e.g., 2 PCs and a router). Use private IP addresses (e.g., 192.168.1.x) on the PCs and configure the router to perform NAT to allow the PCs to access the internet.
 Task: Test the NAT configuration by pinging an external IP address from the PCs and capture the traffic using Wireshark.
 What is the source IP address before and after NAT?
-Note:
-For each task, submit screenshots of your configurations, ping tests, or Wireshark captures.
-Provide a brief explanation of the concepts involved in each task and how the configurations and tests were performed.
+
+# 🌐 NAT Configuration using Cisco Packet Tracer
+
+## ✅ Goal
+
+- Create a network with:
+  - 2 PCs (Private IP: 192.168.1.x)
+  - 1 Router (performs NAT)
+  - 1 Server (acts as Internet)
+- Enable communication from private network to external network
+- Verify using:
+  - `ping`
+  - Packet capture (Simulation Mode / Wireshark)
+
+---
+
+## 🖥️ Step 1: Build Network Topology
+
+**Topology:**
+- 2 PCs
+- 1 Switch
+- 1 Router
+- 1 Server (Internet simulation)
+<img width="522" height="238" alt="nat_2" src="https://github.com/user-attachments/assets/18497424-7c56-4010-9ab8-ce7bf3bb4fd6" />
+
+**PCs IP address Configuration:**
+
+| Device | IP Address     | Subnet Mask     | Default Gateway |
+|--------|---------------|-----------------|-----------------|
+| PC0    | 192.168.1.2  | 255.255.255.0   | 192.168.1.1     |
+| PC1    | 192.168.1.3  | 255.255.255.0   | 192.168.1.1     |
+| Server    | 200.0.0.2  | 255.255.255.0   | 200.0.0.1     |
+
+**Router Configuration:**
+
+**Inside Interface (LAN):**
+```bash
+interface fastEthernet0/0
+ip address 192.168.1.1 255.255.255.0
+ip nat inside
+no shutdown
+```
+**Outside Interface (LAN):**
+```bash
+interface fastEthernet0/1
+ip address 200.0.0.1 255.255.255.0
+ip nat outside
+no shutdown
+```
+**Configure NAT:**
+```bash
+access-list 1 permit 192.168.1.0 0.0.0.255
+```
+**Enable NAT Overload (PAT):**
+```bash
+ip nat inside source list 1 interface fastEthernet0/1 overload
+```
+**Test NAT from PC0 and PC1:**
+```bash
+ping 200.0.0.2
+```
+Output:<br>
+<img width="462" height="218" alt="nat_1" src="https://github.com/user-attachments/assets/0ae0b948-a135-4184-b3ff-318a206da88d" />
+<br>
+**Verify NAT on Router:**
+```bash
+show ip nat translations
+```
+Output:<br>
+<img width="565" height="308" alt="nat_router" src="https://github.com/user-attachments/assets/497f9dc7-856b-40c8-b889-13550c93e863" />
+<br>
+
+Simulation of Traffic in Packet Tracer:
+<img width="935" height="428" alt="nat__1" src="https://github.com/user-attachments/assets/250cbe24-59fd-4d66-94c9-80c0600bedce" />
+
+<img width="925" height="411" alt="nat__2" src="https://github.com/user-attachments/assets/62250271-320c-4512-9bc4-28e70b24029e" />
+
+<img width="930" height="431" alt="nat__3" src="https://github.com/user-attachments/assets/d7498525-0610-401b-b3fb-f5ac8fdc2eb4" />
+
+Before NAT: Source IP - 192.168.1.2 (Local IP)
+After NAT: Source IP - 200.0.0.1 (Public IP)
