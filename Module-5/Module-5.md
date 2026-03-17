@@ -53,6 +53,42 @@ In this capture, the device **192.168.1.1** sends an ARP request to find the MAC
 
 2) Using Packet Tracer, simulate an ARP spoofing attack. Analyze the behavior of devices on the network when they receive a malicious ARP response.
 
+# ARP Spoofing Simulation using Packet Tracer
+
+**Network Topology:**
+- 1 Switch  
+- 3 PCs
+
+Created a LAN using one switch and three PCs in Cisco Packet Tracer ans assigned IP addresses:
+   - Victim → 192.168.1.2  
+   - Attacker → 192.168.1.100  
+   - Gateway → 192.168.1.1  
+Checked the arp table after pining the gateway from the victim to check the initial arp table.
+<img width="462" height="285" alt="2_1" src="https://github.com/user-attachments/assets/514aaf1f-84be-4c15-8ab4-6cbe81c3c94e" />
+
+Configured the default gateway of the victim as the attacker's IP address (192.168.1.100) to simulate spoofing.
+
+Again check the arp table:
+<img width="457" height="73" alt="2_3" src="https://github.com/user-attachments/assets/d8d502ad-67e8-4161-9376-d7f41a92b991" />
+<br>
+When a device on a network receives a malicious ARP response, it does not verify the authenticity of the ARP message.
+
+**Observed Behavior:**
+**ARP Table Update Without Verification**
+   - The device updates its ARP cache with the received IP-to-MAC mapping, even if it is incorrect.
+   - This allows an attacker to associate their MAC address with another device’s IP (e.g., gateway).
+**Traffic Redirection**
+   - The victim starts sending data packets to the attacker instead of the actual destination.
+   - This leads to incorrect routing of network traffic.
+**Man-in-the-Middle Possibility**
+   - The attacker can intercept, monitor, or modify the data being transmitted between devices.
+   - Communication appears normal to the victim, making the attack hard to detect.
+**Packet Loss or Network Disruption**
+   - If the attacker does not forward the packets, communication may fail completely.
+   - This results in denial of service-like behavior.
+**Duplicate or Abnormal ARP Entries**
+   - Multiple IP addresses may map to the same MAC address in the ARP table.
+   - This is a key indicator of ARP spoofing.
 
 
 3) Manually configure static IPs on the client devices(like Pc or your mobile phone) and verify connectivity using ping.
