@@ -326,11 +326,7 @@ The default subnet mask for Class C is **255.255.255.0**.
 Task: Test the NAT configuration by pinging an external IP address from the PCs and capture the traffic using Wireshark.
 What is the source IP address before and after NAT?
 
-# 🌐 NAT Configuration using Cisco Packet Tracer
-
-## ✅ Goal
-
-- Create a network with:
+Created a network with:
   - 2 PCs (Private IP: 192.168.1.x)
   - 1 Router (performs NAT)
   - 1 Server (acts as Internet)
@@ -338,10 +334,6 @@ What is the source IP address before and after NAT?
 - Verify using:
   - `ping`
   - Packet capture (Simulation Mode / Wireshark)
-
----
-
-## 🖥️ Step 1: Build Network Topology
 
 **Topology:**
 - 2 PCs
