@@ -148,6 +148,129 @@ Calculate the new subnet mask.
 Determine the valid host range for each subnet.
 Assign IP addresses to devices in Packet Tracer and verify connectivity.**
 
+**Given Network Address:** 10.0.0.0/24  
+**Subnet Mask:** 255.255.255.0  
+**Total Hosts:** 256  
+
+To create 4 subnets, 2 bits are borrowed from the host portion. (2^2 = 4 subnets)  
+**New subnet prefix:** /26  
+**New subnet mask:** 255.255.255.192  
+
+## Subnet Table
+
+| Subnet | Network Address | First Host | Last Host | Broadcast |
+|------|------|------|------|------|
+| Subnet 1 | 10.0.0.0 | 10.0.0.1 | 10.0.0.62 | 10.0.0.63 |
+| Subnet 2 | 10.0.0.64 | 10.0.0.65 | 10.0.0.126 | 10.0.0.127 |
+| Subnet 3 | 10.0.0.128 | 10.0.0.129 | 10.0.0.190 | 10.0.0.191 |
+| Subnet 4 | 10.0.0.192 | 10.0.0.193 | 10.0.0.254 | 10.0.0.255 |
+
+Each subnet supports 62 usable host addresses.
+
+---
+
+## **Packet Tracer Implementation:**
+
+The network devices were connected in the following topology:
+ - 2 Routers
+ - 4 Switches (1 per subnet)
+ - 8 PCs (2 per subnet)
+
+![SUBNET_TOPOLOGY](subnet.png)
+
+**IP Address Assignment:**
+
+| Subnet | Device | IP Address | Subnet Mask | Default Gateway |
+|------|------|------|------|------|
+| Subnet 1 | Router0 Interface | 10.0.0.1 | 255.255.255.192 | — |
+| Subnet 1 | PC0 | 10.0.0.10 | 255.255.255.192 | 10.0.0.1 |
+| Subnet 1 | PC1 | 10.0.0.20 | 255.255.255.192 | 10.0.0.1 |
+| Subnet 2 | Router0 Interface | 10.0.0.65 | 255.255.255.192 | — |
+| Subnet 2 | PC2 | 10.0.0.70 | 255.255.255.192 | 10.0.0.65 |
+| Subnet 2 | PC3 | 10.0.0.80 | 255.255.255.192 | 10.0.0.65 |
+| Subnet 3 | Router1 Interface | 10.0.0.129 | 255.255.255.192 | — |
+| Subnet 3 | PC4 | 10.0.0.130 | 255.255.255.192 | 10.0.0.129 |
+| Subnet 3 | PC5 | 10.0.0.140 | 255.255.255.192 | 10.0.0.129 |
+| Subnet 4 | Router1 Interface | 10.0.0.193 | 255.255.255.192 | — |
+| Subnet 4 | PC6 | 10.0.0.200 | 255.255.255.192 | 10.0.0.193 |
+| Subnet 4 | PC7 | 10.0.0.210 | 255.255.255.192 | 10.0.0.193 |
+
+**Router Configuration:**
+Router0 Configuration:
+```bash
+enable
+configure terminal
+```
+```bash
+interface fa0/0
+ip address 10.0.0.1 255.255.255.192
+no shutdown
+```
+```bash
+interface fa0/1
+ip address 10.0.0.65 255.255.255.192
+no shutdown
+```
+```bash
+interface fa0/2
+ip address 192.168.1.1 255.255.255.252
+no shutdown
+```
+**Router1 Configuration:**
+```bash
+enable
+configure terminal
+```
+```bash
+interface fa0/0
+ip address 10.0.0.129 255.255.255.192
+no shutdown
+```
+```bash
+interface fa0/1
+ip address 10.0.0.193 255.255.255.192
+no shutdown
+```
+```bash
+interface fa0/2
+ip address 192.168.1.2 255.255.255.252
+no shutdown
+```
+
+**Static Routing Configuration:**
+
+To enable communication between all subnets:
+
+Router0:
+```bash
+ip route 10.0.0.128 255.255.255.192 192.168.1.2
+ip route 10.0.0.192 255.255.255.192 192.168.1.2
+```
+Router1:
+```bash
+ip route 10.0.0.0 255.255.255.192 192.168.1.1
+ip route 10.0.0.64 255.255.255.192 192.168.1.1
+```
+
+**Verification:**
+
+Connectivity was tested using the `ping` command.
+
+Example:
+```bash
+ping 10.0.0.130
+ping 10.0.0.200
+```
+
+Successful replies confirm that routing between different subnets is working correctly.
+
+![PING_RESULT_1](subnet_ping_1.png)
+![PING_RESULT_2](subnet_ping_2.png)
+
+
+The network 10.0.0.0/24 was successfully divided into 4 equal subnets using a /26 subnet mask.  
+All devices were assigned valid IP addresses, and communication between different subnets was verified using static routing.
+
 
 **4. You are given three IP addresses: 192.168.10.5, 172.20.15.1, and 8.8.8.8.
 Identify the class of each IP address.
