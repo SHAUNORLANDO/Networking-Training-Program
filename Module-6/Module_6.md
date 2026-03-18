@@ -176,8 +176,8 @@ The network devices were connected in the following topology:
  - 4 Switches (1 per subnet)
  - 8 PCs (2 per subnet)
 
-![SUBNET_TOPOLOGY](subnet.png)
-
+<img width="751" height="660" alt="subnet" src="https://github.com/user-attachments/assets/30b32912-dbaa-46c6-98cd-a1e221e22620" />
+<br>
 **IP Address Assignment:**
 
 | Subnet | Device | IP Address | Subnet Mask | Default Gateway |
@@ -253,7 +253,6 @@ ip route 10.0.0.64 255.255.255.192 192.168.1.1
 ```
 
 **Verification:**
-
 Connectivity was tested using the `ping` command.
 
 Example:
@@ -264,9 +263,11 @@ ping 10.0.0.200
 
 Successful replies confirm that routing between different subnets is working correctly.
 
-![PING_RESULT_1](subnet_ping_1.png)
-![PING_RESULT_2](subnet_ping_2.png)
+Ping status within subnet:
+<img width="455" height="222" alt="subnet_ping_within" src="https://github.com/user-attachments/assets/5515fd34-ad05-4238-a787-6fde1034c65c" />
 
+Ping status between different subnets:
+<img width="466" height="225" alt="subnet_ping" src="https://github.com/user-attachments/assets/b2566a6c-19c5-45b7-8599-3f4d062a5321" />
 
 The network 10.0.0.0/24 was successfully divided into 4 equal subnets using a /26 subnet mask.  
 All devices were assigned valid IP addresses, and communication between different subnets was verified using static routing.
