@@ -128,9 +128,8 @@ ping 192.168.2.9
 ```
 
 All pings are successful.
-Example: 
+Example: <br> 
 <img width="621" height="557" alt="static_route_ping" src="https://github.com/user-attachments/assets/3f8db8f6-2cd6-4835-81ef-9f8c602d0f6b" />
-
 <br>
 
 **Traceroute Test:**
