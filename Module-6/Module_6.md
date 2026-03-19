@@ -347,3 +347,126 @@ NAT Procedure:
 **5. In Cisco Packet Tracer, configure NAT on a router to allow internal devices (192.168.1.x) to access the internet.
 Test connectivity by pinging an external public IP.
 Capture the traffic in Wireshark and analyze the source IP before and after NAT translation.**
+
+A network is built in Cisco Packet Tracer consisting of:
+- 1 Router
+- 1 Switch
+- 2 PCs (Internal Network)
+- 1 Server (Simulated Internet)
+
+![NAT_TOPOLOGY](nat_topology.png)
+
+**IP Addressing:**
+
+| Device | Interface | IP Address | Subnet Mask | Description |
+|-------|----------|------------|-------------|------------|
+| Router | Fa0/0 | 192.168.1.1 | 255.255.255.0 | Internal (LAN) |
+| Router | Fa0/1 | 200.0.0.1 | 255.255.255.0 | External (WAN) |
+| PC0 | FastEthernet0 | 192.168.1.2 | 255.255.255.0 | Internal Host |
+| PC1 | FastEthernet0 | 192.168.1.3 | 255.255.255.0 | Internal Host |
+| Server | FastEthernet0 | 200.0.0.2 | 255.255.255.0 | Public Server |
+
+Default Gateway (PCs): 192.168.1.1
+
+**Router Configuration:**
+Enable NAT and Configure Interfaces:
+```bash
+enable
+configure terminal
+```
+```bash
+interface fa0/0
+ip address 192.168.1.1 255.255.255.0
+ip nat inside
+no shutdown
+```
+```bash
+interface fa0/1
+ip address 200.0.0.1 255.255.255.0
+ip nat outside
+no shutdown
+```
+
+**NAT Configuration (PAT):**
+Create Access List:
+```bash
+access-list 1 permit 192.168.1.0 0.0.0.255
+```
+Enable NAT Overload:
+```bash
+ip nat inside source list 1 interface fa0/1 overload
+```
+
+**Verification:**
+Ping Test (from PC)
+```bash
+ping 200.0.0.2
+```
+
+
+Successful reply indicates NAT is working
+
+On Router:
+```bash
+show ip nat translations
+```
+
+Expected output:
+```
+Inside global    Inside local      Outside local     Outside global
+200.0.0.1        192.168.1.2       200.0.0.2         200.0.0.2
+```
+
+---
+
+## 📡 Wireshark Analysis
+
+### Steps:
+1. Open **Simulation Mode** in Packet Tracer
+2. Filter: ICMP
+3. Start capture
+4. Ping from PC to Server
+5. Observe packet flow
+
+---
+
+## 🔄 Packet Analysis
+
+### Before NAT (Inside Network)
+- Source IP: **192.168.1.2**
+- Destination IP: **200.0.0.2**
+
+### After NAT (Outside Network)
+- Source IP: **200.0.0.1**
+- Destination IP: **200.0.0.2**
+
+---
+
+## 📊 NAT Translation Summary
+
+| Stage | Source IP | Destination IP |
+|------|----------|----------------|
+| Before NAT | 192.168.1.2 | 200.0.0.2 |
+| After NAT | 200.0.0.1 | 200.0.0.2 |
+
+---
+
+## ✅ Result
+
+NAT was successfully configured using PAT. Internal devices were able to access external networks. Wireshark analysis confirmed that private IP addresses were translated into a public IP address.
+
+---
+
+## 🧠 Key Learning
+
+- NAT allows private IPs to access the internet  
+- PAT enables multiple devices to share one public IP  
+- `ip nat inside` and `ip nat outside` are essential  
+- Wireshark helps visualize real-time packet translation  
+
+---
+
+## 📌 Conclusion
+
+This experiment demonstrates how NAT translates private IP addresses into public IPs, enabling secure and efficient communication between internal networks and external systems.
+
