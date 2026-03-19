@@ -263,10 +263,10 @@ ping 10.0.0.200
 
 Successful replies confirm that routing between different subnets is working correctly.
 
-Ping status within subnet:
+Ping status within subnet:<br>
 <img width="455" height="222" alt="subnet_ping_within" src="https://github.com/user-attachments/assets/5515fd34-ad05-4238-a787-6fde1034c65c" />
 
-Ping status between different subnets:
+Ping status between different subnets:<br>
 <img width="466" height="225" alt="subnet_ping" src="https://github.com/user-attachments/assets/b2566a6c-19c5-45b7-8599-3f4d062a5321" />
 
 The network 10.0.0.0/24 was successfully divided into 4 equal subnets using a /26 subnet mask.  
