@@ -278,6 +278,72 @@ Identify the class of each IP address.
 Determine if it is private or public.
 Explain how NAT would handle a private IP when accessing the internet.**
 
+# IP Address Classification and NAT Explanation
+
+Given IP Addresses: 
+- 192.168.10.5  
+- 172.20.15.1  
+- 8.8.8.8  
+
+IP addresses are divided into classes based on their first octet:
+
+| Class | Range |
+|------|------|
+| Class A | 1 – 126 |
+| Class B | 128 – 191 |
+| Class C | 192 – 223 |
+
+**IP Address classification:**
+
+| IP Address     | Class |
+|---------------|--------|
+| 192.168.10.5  | Class C |
+| 172.20.15.1   | Class B |
+| 8.8.8.8       | Class A | 
+
+Private IP Ranges:
+
+| Class   | Private Range |
+|---------|---------------|
+| Class A | 10.0.0.0 – 10.255.255.255 |
+| Class B | 172.16.0.0 – 172.31.255.255 |
+| Class C | 192.168.0.0 – 192.168.255.255 |
+
+| IP Address    | Private/Public | Range |
+|---------------|----------------|--------|
+| 192.168.10.5  | Private        | Falls within 192.168.0.0 – 192.168.255.255 |
+| 172.20.15.1   | Private        | Falls within 172.16.0.0 – 172.31.255.255 |
+| 8.8.8.8       | Public         | Not in any private IP range |
+
+
+**NAT (Network Address Translation):** 
+NAT is a technique used by routers to translate private IP addresses into a public IP address so devices can access the internet.
+
+Let us consider an example scenario:<br>
+A device with private IP:
+```
+192.168.10.5
+```
+wants to access:
+```
+8.8.8.8
+```
+Private IP addresses cannot directly access the internet and require NAT for communication. It is performed by the router.
+
+NAT Procedure:
+1. The PC sends a request to the router.
+2. The router replaces the source private IP with its public IP.
+3. The request is sent to the internet.
+4. The destination (e.g., 8.8.8.8) responds to the public IP.
+5. The router translates the response back to the original private IP.
+6. The PC receives the response.
+
+| Original Packet | Translated Packet |
+|----------------|------------------|
+| Source: 192.168.10.5 | Source: Public IP (e.g., 200.1.1.1) |
+| Destination: 8.8.8.8 | Destination: 8.8.8.8 |
+
+
 **5. In Cisco Packet Tracer, configure NAT on a router to allow internal devices (192.168.1.x) to access the internet.
 Test connectivity by pinging an external public IP.
 Capture the traffic in Wireshark and analyze the source IP before and after NAT translation.**
