@@ -3,8 +3,6 @@
 **1. Capture and analyze ARP packets using Wireshark. Inspect the ARP request and reply frames when your device attempts to find the router's MAC address.
 Discuss the importance of ARP in packet forwarding.**
 
-## Q1: ARP Packet Capture and Analysis using Wireshark
-
 Opened Wireshark and selected the active network interface and started packet capture.
 Applied arp filter.
 
