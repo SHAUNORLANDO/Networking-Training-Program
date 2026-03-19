@@ -354,7 +354,7 @@ A network is built in Cisco Packet Tracer consisting of:
 - 2 PCs (Internal Network)
 - 1 Server (Simulated Internet)
 
-![NAT_TOPOLOGY](nat_topology.png)
+<img width="316" height="540" alt="nat_topology" src="https://github.com/user-attachments/assets/e625f8b9-0fcc-43cd-b600-0a6595e53ee0" />
 
 **IP Addressing:**
 
@@ -402,7 +402,7 @@ Ping Test (from PC)
 ```bash
 ping 200.0.0.2
 ```
-
+<img width="636" height="565" alt="nat_ping" src="https://github.com/user-attachments/assets/6bfb929e-197b-483e-9162-86fa6227a7c8" />
 
 Successful reply indicates NAT is working
 
@@ -417,56 +417,37 @@ Inside global    Inside local      Outside local     Outside global
 200.0.0.1        192.168.1.2       200.0.0.2         200.0.0.2
 ```
 
----
+Wireshark Analysis: 
+   1. Open Simulation Mode in Packet Tracer
+   2. Filter: ICMP
+   3. Start capture
+   4. Ping from PC to Server
+   5. Observe packet flow
 
-## 📡 Wireshark Analysis
+<img width="937" height="532" alt="nat_simulation" src="https://github.com/user-attachments/assets/cb052e08-f12b-4aa6-b1dc-2c87f490d701" />
 
-### Steps:
-1. Open **Simulation Mode** in Packet Tracer
-2. Filter: ICMP
-3. Start capture
-4. Ping from PC to Server
-5. Observe packet flow
+<img width="287" height="518" alt="nat_simulation_2" src="https://github.com/user-attachments/assets/e329e598-f6ff-4079-ac6a-7ae5dd190eb5" />
 
----
+**Packet Analysis:**
 
-## 🔄 Packet Analysis
+Before NAT (Inside Network):
+- Source IP: 192.168.1.2
+- Destination IP: 200.0.0.2
 
-### Before NAT (Inside Network)
-- Source IP: **192.168.1.2**
-- Destination IP: **200.0.0.2**
+After NAT (Outside Network):
+- Source IP: 200.0.0.1
+- Destination IP: 200.0.0.2
 
-### After NAT (Outside Network)
-- Source IP: **200.0.0.1**
-- Destination IP: **200.0.0.2**
+<img width="565" height="308" alt="nat_router" src="https://github.com/user-attachments/assets/b28a8acd-2a2e-4032-9354-f1b03d2c9ffe" />
 
----
-
-## 📊 NAT Translation Summary
+NAT Translation:
 
 | Stage | Source IP | Destination IP |
 |------|----------|----------------|
 | Before NAT | 192.168.1.2 | 200.0.0.2 |
 | After NAT | 200.0.0.1 | 200.0.0.2 |
 
----
-
-## ✅ Result
-
 NAT was successfully configured using PAT. Internal devices were able to access external networks. Wireshark analysis confirmed that private IP addresses were translated into a public IP address.
 
 ---
-
-## 🧠 Key Learning
-
-- NAT allows private IPs to access the internet  
-- PAT enables multiple devices to share one public IP  
-- `ip nat inside` and `ip nat outside` are essential  
-- Wireshark helps visualize real-time packet translation  
-
----
-
-## 📌 Conclusion
-
-This experiment demonstrates how NAT translates private IP addresses into public IPs, enabling secure and efficient communication between internal networks and external systems.
 
