@@ -154,7 +154,7 @@ traceroute -m 5 google.com
 
 <img width="647" height="122" alt="3 4" src="https://github.com/user-attachments/assets/c2752f05-6d29-45a8-acd8-4ab2c10f98fd" />
 
- - -m option dspecifies maximum no.of hops.
+ - -m option specifies the maximum no.of hops.
 
 **Issue encountered:**
 - While executing traceroute in Linux, a "Temporary failure in name resolution" error was encountered.
