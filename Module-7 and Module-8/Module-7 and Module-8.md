@@ -168,9 +168,9 @@ Successfully traced the route to different websites and analyzed the parameters 
 
 **4. Use Cisco packet tracer for the below**
 
-**5. Set up trunk ports between switches and try ping between different VLANs.**
-**6. Change the native VLAN on a trunk port.Test for VLAN mismatches and troubleshoot.**
-**7. Configure a management VLAN and assign an IP address for remote access.Test SSH or Telnet access to the switch.**
+**Set up trunk ports between switches and try ping between different VLANs.**
+**Change the native VLAN on a trunk port.Test for VLAN mismatches and troubleshoot.**
+**Configure a management VLAN and assign an IP address for remote access.Test SSH or Telnet access to the switch.**
 
 8. You have a Cisco switch and a VoIP phone that needs to be placed in a voice VLAN (VLAN 20). The data for the PC should remain in a separate VLAN (VLAN 10). Configure the switch port to support both voice and data traffic.
 9. You configured VLANs 10 and 20 on your switch and assigned ports to each VLAN. However, devices in VLAN 10 cannot communicate with devices in VLAN 20. Troubleshoot the issue.
