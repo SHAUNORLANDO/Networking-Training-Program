@@ -1,6 +1,6 @@
 # Networking Training Program - Module 7 and 8 Assignment
 
-**1.Try Test-Connection and nslookup commands for below websites: <br>
+**1. Try Test-Connection and nslookup commands for below websites: <br>
 www.google.com <br>
 www.facebook.com <br>
 www.amazon.com <br>
@@ -109,11 +109,69 @@ udp
 
 **3. Explore traceroute/tracert for different websites eg:google.com and analyse the parameters in the output and explore different options for traceroute command**
 
+The `tracert` (Windows) or `traceroute` (Linux) command is used to track the route that data packets take to reach a destination.
 
-4. Use Cisco packet tracer for the below
-5. Set up trunk ports between switches and try ping between different VLANs.
-6. Change the native VLAN on a trunk port.Test for VLAN mismatches and troubleshoot.
-7. Configure a management VLAN and assign an IP address for remote access.Test SSH or Telnet access to the switch.
+- Traceroute relies on ICMP responses, and works by sending packets with increasing Time-To-Live (TTL) values and records each intermediate router (hop) along the path.
+
+The following commands were executed:
+```bash
+tracert www.google.com
+tracert www.github.com
+```
+<img width="623" height="283" alt="3 1" src="https://github.com/user-attachments/assets/c159a7ad-cfef-4fd8-a05b-fdd272493863" />
+<img width="627" height="498" alt="3 2" src="https://github.com/user-attachments/assets/5140201c-930a-41a2-845c-b46609ce6978" />
+<br>
+Additional options explored:
+
+```bash
+tracert -d www.google.com
+tracert -h 5 www.google.com
+```
+<img width="628" height="597" alt="3 3" src="https://github.com/user-attachments/assets/b7696dac-3b6d-4f9a-8105-f595e504fa33" />
+
+Each line in the output represents a hop.
+
+**Parameters:**
+- **Hop Number** → Indicates the sequence of routers in the path  
+- **Response Time (ms)** → Time taken for the packet to reach that hop (three attempts shown)  
+- **IP Address / Hostname** → The router or server at that hop  
+
+- The first hop corresponds to the local router (192.168.1.1).
+- Intermediate hops belong to the Internet Service Provider (ISP).
+- The final hop represents the destination server.
+- The response time increases as the distance to the destination increases.
+- Some intermediate hops showed "Request timed out". This does not indicate a network failure. It implies that those routers are configured to block or ignore ICMP requests due to security or firewall settings. Even though these hops did not respond, the final destination was reached successfully, confirming that the network path is functioning properly.
+- Some hops may show `* * *`, indicating no response due to firewall or security restrictions.
+- Using `-d` option speeds up the process by skipping DNS resolution.
+- Using `-d` option speeds up the process by skipping DNS resolution.
+- Using `-h` option limits the maximum number of hops (routers) the traceroute will check.
+
+**Linux execution:**
+Command:
+```bash
+traceroute -m 5 google.com
+```
+
+<img width="647" height="122" alt="3 4" src="https://github.com/user-attachments/assets/c2752f05-6d29-45a8-acd8-4ab2c10f98fd" />
+
+ - -m option dspecifies maximum no.of hops.
+
+**Issue encountered:**
+- While executing traceroute in Linux, a "Temporary failure in name resolution" error was encountered.
+- This indicates a DNS resolution issue, where the system is unable to convert domain names into IP addresses.
+- The issue was resolved by reinstalling traceroute command in the system and restarting Network Manager.
+- Alternatively, traceroute can be performed using IP addresses to bypass DNS resolution. (`traceroute 8.8.8.8`)
+
+Successfully traced the route to different websites and analyzed the parameters in the traceroute output.
+
+---
+
+**4. Use Cisco packet tracer for the below**
+
+**5. Set up trunk ports between switches and try ping between different VLANs.**
+**6. Change the native VLAN on a trunk port.Test for VLAN mismatches and troubleshoot.**
+**7. Configure a management VLAN and assign an IP address for remote access.Test SSH or Telnet access to the switch.**
+
 8. You have a Cisco switch and a VoIP phone that needs to be placed in a voice VLAN (VLAN 20). The data for the PC should remain in a separate VLAN (VLAN 10). Configure the switch port to support both voice and data traffic.
 9. You configured VLANs 10 and 20 on your switch and assigned ports to each VLAN. However, devices in VLAN 10 cannot communicate with devices in VLAN 20. Troubleshoot the issue.
 10. Try Inter VLAN routing with Router
