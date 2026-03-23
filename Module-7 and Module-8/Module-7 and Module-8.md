@@ -169,7 +169,163 @@ Successfully traced the route to different websites and analyzed the parameters 
 **4. Use Cisco packet tracer for the below**
 
 **Set up trunk ports between switches and try ping between different VLANs.**
+
+Topology:
+- 2 × Switches (2950)
+- 4 × PCs
+- 1 × Trunk link between switches
+
+<img width="725" height="332" alt="6 1" src="https://github.com/user-attachments/assets/f3db2034-3adb-4869-82e9-bcb96a3f1999" />
+
+**VLAN Distribution:**
+- VLAN 10: PC0, PC1 (Switch0)
+- VLAN 20: PC2, PC3 (Switch1)
+
+**IP Addressing:**
+
+| Device | IP Address     | VLAN   |
+|--------|---------------|--------|
+| PC0    | 192.168.10.3  | VLAN 10 |
+| PC1    | 192.168.10.2  | VLAN 10 |
+| PC2    | 192.168.20.3  | VLAN 20 |
+| PC3    | 192.168.20.2  | VLAN 20 |
+
+**Connections:**
+- PC0 → Switch0 (Fa0/1)
+- PC1 → Switch0 (Fa0/2)
+- PC2 → Switch1 (Fa0/1)
+- PC3 → Switch1 (Fa0/2)
+- **Trunk Link:** Switch0 Fa0/24 ↔ Switch1 Fa0/24
+
+**Configuration:**
+
+Switch0 Configuration:
+```bash
+enable
+conf t
+
+vlan 10
+name VLAN10
+
+int range fa0/1-2
+switchport mode access
+switchport access vlan 10
+
+interface fa0/24
+switchport mode trunk
+
+end
+write memory
+```
+
+Switch 1 Configuration:
+```bash
+enable
+conf t
+
+vlan 20
+name VLAN20
+
+int range fa0/1-2
+switchport mode access
+switchport access vlan 20
+
+interface fa0/24
+switchport mode trunk
+
+end
+write memory
+```
+
+**Ping Test:**
+Communication within same VLAN is Successful but between different VLANs failed:
+<img width="627" height="610" alt="6 2" src="https://github.com/user-attachments/assets/a5ab6d0e-a56c-4f2d-96ed-7f4b956d9a61" />
+
 **Change the native VLAN on a trunk port.Test for VLAN mismatches and troubleshoot.**
+
+- Native VLAN carries untagged traffic on a trunk link
+- Default Native VLAN = VLAN 1
+- Both ends of a trunk must have the same native VLAN
+- Mismatch can cause network issues and security vulnerabilities
+
+**Configuring Native VLAN**
+
+Switch0:
+```bash
+enable
+conf t
+
+vlan 99
+name NATIVE_VLAN
+
+int fa0/24
+switchport mode trunk
+switchport trunk native vlan 99
+
+end
+write memory
+```
+<img width="545" height="192" alt="6 3" src="https://github.com/user-attachments/assets/27e12769-313d-4120-9a76-c1ef22ce8032" />
+Switch1:
+```bash
+enable
+conf t
+
+vlan 99
+name NATIVE_VLAN
+
+int fa0/24
+switchport mode trunk
+switchport trunk native vlan 99
+
+end
+write memory
+```
+<img width="542" height="188" alt="6 4" src="https://github.com/user-attachments/assets/ba4c5993-cc1b-400a-9c1d-b6cd27bea455" />
+
+**Create VLAN Mismatch:**
+Changed native VLAN on only Switch1:
+```bash
+conf t
+int fa0/24
+switchport trunk native vlan 1
+end
+```
+<img width="518" height="72" alt="6 5" src="https://github.com/user-attachments/assets/02c85b7c-d83f-48ec-b1e0-60fff6bb6550" />
+
+**Observations:**
+CDP Warning Message:
+%CDP-4-NATIVE_VLAN_MISMATCH
+
+Possible Issues:
+ - Incorrect traffic forwarding
+ - Security risks (VLAN hopping)
+ - Unstable network behavior
+
+**Troubleshooting**
+Check trunk configuration:
+```bash
+show interfaces trunk
+```
+Found native VLAN mismatch warnings. To fix the issue, make native VLAN same on both switches.
+Switch1:
+```bash
+conf t
+int fa0/24
+switchport trunk native vlan 99
+end
+write memory
+```
+<img width="546" height="203" alt="6 6" src="https://github.com/user-attachments/assets/714ab8b9-6d60-4b9f-b0ed-b50d8aeb6bd2" />
+
+**Verification:**
+```bash
+show interfaces trunk
+```
+ - Native VLAN matches on both sides
+ - No warning messages
+ - Stable network
+
 **Configure a management VLAN and assign an IP address for remote access.Test SSH or Telnet access to the switch.**
 
 8. You have a Cisco switch and a VoIP phone that needs to be placed in a voice VLAN (VLAN 20). The data for the PC should remain in a separate VLAN (VLAN 10). Configure the switch port to support both voice and data traffic.
