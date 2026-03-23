@@ -168,7 +168,7 @@ Successfully traced the route to different websites and analyzed the parameters 
 
 **4. Use Cisco packet tracer for the below**
 
-**Set up trunk ports between switches and try ping between different VLANs.**
+**5. Set up trunk ports between switches and try ping between different VLANs.**
 
 Topology:
 - 2 × Switches (2950)
@@ -241,7 +241,7 @@ write memory
 Communication within same VLAN is Successful but between different VLANs failed:
 <img width="627" height="610" alt="6 2" src="https://github.com/user-attachments/assets/a5ab6d0e-a56c-4f2d-96ed-7f4b956d9a61" />
 
-**Change the native VLAN on a trunk port.Test for VLAN mismatches and troubleshoot.**
+**6. Change the native VLAN on a trunk port.Test for VLAN mismatches and troubleshoot.**
 
 - Native VLAN carries untagged traffic on a trunk link
 - Default Native VLAN = VLAN 1
@@ -294,7 +294,7 @@ end
 <img width="518" height="72" alt="6 5" src="https://github.com/user-attachments/assets/02c85b7c-d83f-48ec-b1e0-60fff6bb6550" />
 
 **Observations:**
-CDP Warning Message:
+Warning Message!:
 %CDP-4-NATIVE_VLAN_MISMATCH
 
 Possible Issues:
@@ -326,9 +326,191 @@ show interfaces trunk
  - No warning messages
  - Stable network
 
-**Configure a management VLAN and assign an IP address for remote access.Test SSH or Telnet access to the switch.**
+**7. Configure a management VLAN and assign an IP address for remote access. Test SSH or Telnet access to the switch.**
 
-8. You have a Cisco switch and a VoIP phone that needs to be placed in a voice VLAN (VLAN 20). The data for the PC should remain in a separate VLAN (VLAN 10). Configure the switch port to support both voice and data traffic.
+Topology:
+- 2 × Switches (2950)
+- 4 × User PCs (VLAN 10 & 20)
+- 1 × Admin PC (VLAN 99)
+- Trunk link between switches
+
+<img width="815" height="442" alt="7_admin" src="https://github.com/user-attachments/assets/c0ccc058-a5e5-4c19-8a9d-325e33bd982a" />
+
+**IP Addressing:**
+VLAN 10:
+- PC0 → 192.168.10.2
+- PC1 → 192.168.10.3
+VLAN 20:
+- PC2 → 192.168.20.2
+- PC3 → 192.168.20.3
+VLAN 99 (Management):
+- Switch0 → 192.168.99.1
+- Switch1 → 192.168.99.2
+- Admin PC → 192.168.99.10
+
+**Create Management VLAN:**
+```bash
+enable
+conf t
+vlan 99
+name MANAGEMENT
+```
+**Assign IP to Switch (SVI)**
+Switch0:
+```bash
+interface vlan 99
+ip address 192.168.99.1 255.255.255.0
+no shutdown
+```
+Switch1:
+```bash
+interface vlan 99
+ip address 192.168.99.2 255.255.255.0
+no shutdown
+```
+**Assign Port to VLAN 99 (Admin PC):**
+```bash
+interface fa0/3
+switchport mode access
+switchport access vlan 99
+no shutdown
+```
+**Configure Default Gateway:**
+```bash
+ip default-gateway 192.168.99.1
+```
+**Remote Access Configuration:**
+
+### Telnet
+```bash
+line vty 0 4
+password cisco
+login
+transport input telnet ssh
+```
+
+### SSH
+```bash
+hostname Switch0
+ip domain-name lab.local
+username admin password admin123
+crypto key generate rsa
+- Enter: 1024 (size)
+ip ssh version 2
+line vty 0 4
+login local
+transport input ssh
+```
+
+**Admin PC Testing:**
+
+**Telnet**
+```bash
+telnet 192.168.99.1
+```
+<img width="411" height="161" alt="7_telnet" src="https://github.com/user-attachments/assets/15785f61-8fcb-4d77-903d-19440c4175d7" />
+
+**SSH**
+```bash
+ssh -l admin 192.168.99.1
+```
+<img width="242" height="112" alt="7_ssh" src="https://github.com/user-attachments/assets/a24233f9-21d3-44a7-8050-1eec7919ef69" />
+
+**Issue Faced:**
+- Telnet worked correctly
+- SSH showed: Connection closed by foreign host
+
+Troubleshooting:
+- Checked VLAN and IP configuration
+- Verified connectivity using ping
+- Checked SSH settings and Found incomplete configuration
+- Reconfigured SSH properly:
+  - Set hostname and domain name
+  - Created username and password
+  - Generated RSA keys
+  - Enabled SSH version 2
+  - Configured VTY lines with `login local`
+  - Allowed only SSH access
+
+<img width="417" height="237" alt="7_troubleshoot" src="https://github.com/user-attachments/assets/29e4545a-d732-4aaf-9372-8dd17e67632f" />
+
+Final observation:
+- Telnet working
+- SSH working successfully
+- Remote access to switch achieved
+
+Which is better, telnet or ssh? => SSH (It encrypts all transmitted data for ensuring confidentiality and integrity over insecure networks)
+
+**8. You have a Cisco switch and a VoIP phone that needs to be placed in a voice VLAN (VLAN 20). The data for the PC should remain in a separate VLAN (VLAN 10). Configure the switch port to support both voice and data traffic.**
+
+**Topology:**
+- 1 × Switch (2960)
+- 1 × IP Phone
+- 1 × PC
+- 
+<img width="520" height="127" alt="8_topo" src="https://github.com/user-attachments/assets/d832387b-614a-40a6-8546-9769cd98215c" />
+
+According to the given scenario:
+| VLAN | Purpose |
+|------|--------|
+| VLAN 10 | Data (PC) |
+| VLAN 20 | Voice (IP Phone) |
+
+**Configuration Steps:**
+
+Create VLANs:
+```bash
+enable
+conf t
+
+vlan 10
+name DATA
+
+vlan 20
+name VOICE
+```
+
+Configure Switch Port:
+```bash
+int fa0/1
+switchport mode access
+switchport access vlan 10
+switchport voice vlan 20
+no shutdown
+```
+
+PC Configuration:
+IP Address: 192.168.10.2
+Subnet Mask: 255.255.255.0
+
+- IP Phone separates traffic internally:
+  - Voice traffic → VLAN 20
+  - Data traffic → VLAN 10
+- Single port carries both types of traffic
+
+**Verification:**
+Performed the following in Switch CLI:
+```bash
+show vlan brief
+```
+<img width="683" height="382" alt="8_switch" src="https://github.com/user-attachments/assets/c544144c-3814-43f9-865f-5a197acd53fc" />
+
+Both DATA and VOICE vlan are configured
+
+```bash
+show interfaces fa0/1 switchport
+```
+<img width="457" height="387" alt="8_switchport" src="https://github.com/user-attachments/assets/61673eda-3030-4b88-9c2a-b20578a05f92" />
+
+Checked and verified the configured ports and trunk port.
+
+```bash
+show cdp neighbors
+```
+<img width="608" height="97" alt="8_cdp" src="https://github.com/user-attachments/assets/f671e167-7c12-498f-8d9a-4e8ab46474d4" />
+
+Checked the connected devices and found IP Phone in the list, hence successfully connected.
+
 9. You configured VLANs 10 and 20 on your switch and assigned ports to each VLAN. However, devices in VLAN 10 cannot communicate with devices in VLAN 20. Troubleshoot the issue.
 10. Try Inter VLAN routing with Router
 11. Implement ACLs to restrict traffic based on source and destination ports.Test rules by simulating legitimate and unauthorized traffic.
