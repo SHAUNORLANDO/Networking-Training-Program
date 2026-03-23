@@ -511,8 +511,195 @@ show cdp neighbors
 
 Checked the connected devices and found IP Phone in the list, hence successfully connected.
 
-9. You configured VLANs 10 and 20 on your switch and assigned ports to each VLAN. However, devices in VLAN 10 cannot communicate with devices in VLAN 20. Troubleshoot the issue.
-10. Try Inter VLAN routing with Router
+**9. You configured VLANs 10 and 20 on your switch and assigned ports to each VLAN. However, devices in VLAN 10 cannot communicate with devices in VLAN 20. Troubleshoot the issue.**
+
+**Topology:**
+- 1 × Switch (2960)
+- 1 × Router
+- 4 × PCs
+
+<img width="581" height="433" alt="9_topo" src="https://github.com/user-attachments/assets/57c7d85f-4b39-4d17-b228-591168a7fc8a" />
+
+| VLAN | Devices | Network |
+|------|--------|--------|
+| VLAN 10 | PC0, PC1 | 10.0.0.0/24 |
+| VLAN 20 | PC2, PC3 | 20.0.0.0/24 |
+
+**IP Addressing:**
+
+VLAN 10:
+- PC0 → 10.0.0.2
+- PC1 → 10.0.0.3
+- Gateway → 10.0.0.1
+
+VLAN 20:
+- PC2 → 20.0.0.2
+- PC3 → 20.0.0.3
+- Gateway → 20.0.0.1
+
+Devices in VLAN 10 are unable to communicate with devices in VLAN 20.
+
+**VLAN Configuration in Switch:**
+Create VLANs
+```bash
+enable
+conf t
+
+vlan 10
+exit
+
+vlan 20
+exit
+
+int range fa0/1-2
+switchport mode access
+switchport access vlan 10
+
+int range fa0/3-4
+switchport mode access
+switchport access vlan 20
+
+interface fa0/24
+switchport mode trunk
+```
+
+**Ping test between VLAN 10 and VLAN 20:**
+<img width="472" height="208" alt="9_ping_fail" src="https://github.com/user-attachments/assets/40e07776-ae93-4d30-afa1-1b7b436a53af" />
+The ping test between different VLANs fails.
+
+**Troubleshooting:**
+Verify VLAN Configuration:
+```bash
+show vlan brief
+```
+<img width="626" height="507" alt="9_vlan" src="https://github.com/user-attachments/assets/efb5e97f-c6fe-46c5-82e6-91a4338cdce1" />
+
+Ports correctly assigned to VLAN 10 and VLAN 20
+
+Different VLANs cannot communicate with each other without a layer-3 device.
+ So, the solution is: **Router-on-a-Stick**
+
+ Adding a Router to the topology:
+ <img width="645" height="603" alt="9_topo_router" src="https://github.com/user-attachments/assets/b5962353-966c-4e57-a2f2-c77664241c7e" />
+
+**Router Configuration**
+Subinterface for VLAN 10:
+```bash
+interface fa0/0.10
+encapsulation dot1Q 10
+ip address 10.0.0.1 255.255.255.0
+```
+Subinterface for VLAN 20:
+```bash
+interface fa0/0.20
+encapsulation dot1Q 20
+ip address 20.0.0.1 255.255.255.0
+```
+Enable the interface:
+```bash
+int fa0/0
+no shutdown
+```
+Check if the subnets are configured correctly:
+```bash
+show ip route
+```
+<img width="583" height="262" alt="9_subnet" src="https://github.com/user-attachments/assets/84cd7957-26ec-4a70-aabb-30ad1aa608c3" />
+
+**Testing using ping:**
+<img width="628" height="472" alt="9_ping" src="https://github.com/user-attachments/assets/924ae329-d1bb-4813-9f04-13f9efbee9eb" />
+
+Successful ping demonstrates that the issue has been troubleshooted.
+
+---
+
+**10. Try Inter VLAN routing with Router**
+
+**Topology:**
+- 1 × Router (2811)
+- 2 × Switches (2960)
+- 4 × PCs
+
+<img width="717" height="537" alt="10_topo" src="https://github.com/user-attachments/assets/3200ffd5-740e-4419-a298-6b220d6cb739" />
+
+| VLAN | Department | Network |
+|------|-----------|--------|
+| VLAN 10 | IT | 192.168.10.0/24 |
+| VLAN 20 | HR | 192.168.20.0/24 |
+
+IP Addressing:
+VLAN 10 (Switch0):
+- PC0 → 192.168.10.2  
+- PC1 → 192.168.10.3  
+- Gateway → 192.168.10.1  
+VLAN 20 (Switch1):
+- PC2 → 192.168.20.2  
+- PC3 → 192.168.20.3  
+- Gateway → 192.168.20.1  
+
+**Switch Configuration:**
+Switch0 (VLAN 10):
+```bash
+enable
+configure terminal
+
+vlan 10
+name IT
+
+interface range fa0/1-2
+switchport mode access
+switchport access vlan 10
+
+interface fa0/24
+switchport mode access
+switchport access vlan 10
+```
+Switch1 (VLAN 20):
+```bash
+enable
+configure terminal
+
+vlan 20
+name HR
+
+interface range fa0/1-2
+switchport mode access
+switchport access vlan 20
+
+interface fa0/24
+switchport mode access
+switchport access vlan 20
+```
+
+**Router Configuration:**
+```bash
+enable
+configure terminal
+
+interface fa0/0
+ip address 192.168.10.1 255.255.255.0
+no shutdown
+exit
+
+interface g0/1
+ip address 192.168.20.1 255.255.255.0
+no shutdown
+exit
+```
+
+**Testing**:
+
+Ping within VLAN:
+
+<img width="632" height="572" alt="10_ping_intra_vlan" src="https://github.com/user-attachments/assets/4193baf9-baf8-406f-b3b7-3ebf81188aa8" />
+
+Ping between different VLAN:
+<img width="632" height="645" alt="10_ping_inter_vlan" src="https://github.com/user-attachments/assets/03c39582-ef2c-44c6-bd5e-80e6d87f580e" />
+
+All the pings are successful, hence Inter-VLAN routing is done successfully with a router.
+
+---
+
 11. Implement ACLs to restrict traffic based on source and destination ports.Test rules by simulating legitimate and unauthorized traffic.
 12. Configure a standard Access Control List (ACL) on a router to permit traffic from a specific IP range. Test connectivity to verify the ACL is working as intended.
 13. Create an extended ACL to block specific applications, such as HTTP or FTP traffic.Test the ACL rules by attempting to access blocked services.
