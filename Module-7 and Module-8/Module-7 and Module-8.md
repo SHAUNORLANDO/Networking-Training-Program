@@ -690,7 +690,6 @@ exit
 **Testing**:
 
 Ping within VLAN:
-
 <img width="632" height="572" alt="10_ping_intra_vlan" src="https://github.com/user-attachments/assets/4193baf9-baf8-406f-b3b7-3ebf81188aa8" />
 
 Ping between different VLAN:
@@ -700,8 +699,9 @@ All the pings are successful, hence Inter-VLAN routing is done successfully with
 
 ---
 
-11. Implement ACLs to restrict traffic based on source and destination ports.Test rules by simulating legitimate and unauthorized traffic.
-12. Configure a standard Access Control List (ACL) on a router to permit traffic from a specific IP range. Test connectivity to verify the ACL is working as intended.
-13. Create an extended ACL to block specific applications, such as HTTP or FTP traffic.Test the ACL rules by attempting to access blocked services.
-14. Try Static NAT, Dynamic NAT and PAT to translate IPs
-15. Download iperf in laptop/phone and make sure they are in same network. Try different iperf commands with top, udp, birectional, reverse, multicast, parallel options and analyze the bandwidth and rate of transmission, delay, jitter etc.
+**11. Implement ACLs to restrict traffic based on source and destination ports.Test rules by simulating legitimate and unauthorized traffic.**
+
+**12. Configure a standard Access Control List (ACL) on a router to permit traffic from a specific IP range. Test connectivity to verify the ACL is working as intended.**
+**13. Create an extended ACL to block specific applications, such as HTTP or FTP traffic.Test the ACL rules by attempting to access blocked services.**
+**14. Try Static NAT, Dynamic NAT and PAT to translate IPs**
+**15. Download iperf in laptop/phone and make sure they are in same network. Try different iperf commands with top, udp, birectional, reverse, multicast, parallel options and analyze the bandwidth and rate of transmission, delay, jitter etc.**
