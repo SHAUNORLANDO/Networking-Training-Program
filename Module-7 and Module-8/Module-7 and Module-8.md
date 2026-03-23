@@ -798,6 +798,102 @@ Confirmed ACL is actively filtering traffic
  - Demonstrate traffic filtering based on port numbers
 
 **12. Configure a standard Access Control List (ACL) on a router to permit traffic from a specific IP range. Test connectivity to verify the ACL is working as intended.**
+
+**Topology:**
+ - 4 PCs
+ - 1 Switch
+ - 1 Router 
+ - 1 Server
+
+<img width="785" height="470" alt="12_TOPO" src="https://github.com/user-attachments/assets/6f782081-2de1-4793-862c-c3440c31ace7" />
+
+**IP Addressing:**
+
+| Device       | IP Address     | Subnet Mask     | Gateway       |
+|--------------|---------------|----------------|--------------|
+| PC-IT1       | 192.168.1.10  | 255.255.255.0  | 192.168.1.1  |
+| PC-IT2       | 192.168.1.20  | 255.255.255.0  | 192.168.1.1  |
+| PC-HR1       | 192.168.1.30  | 255.255.255.0  | 192.168.1.1  |
+| PC-HR2       | 192.168.1.40  | 255.255.255.0  | 192.168.1.1  |
+| Router g0/0 | 192.168.1.1   | 255.255.255.0  | —            |
+| Router g0/1 | 192.168.2.1   | 255.255.255.0  | —            |
+| Server       | 192.168.2.100 | 255.255.255.0  | 192.168.2.1  |
+
+Two different departments are considered:
+1) IT department : IP ranges from 192.168.1.10 to 192.168.1.29
+2) HR department : IP ranges from 192.168.1.30 to 192.168.1.49
+
+**Test before ACL:**
+Both the departments can access the server:<br>
+<img width="638" height="570" alt="12_before_acl_it_http" src="https://github.com/user-attachments/assets/8af661d4-596c-40d8-9b82-bb54778ce160" />
+
+<img width="635" height="577" alt="12_before_acl_hr_http" src="https://github.com/user-attachments/assets/b4fc4980-37fc-4adf-ba12-202e35ecd30f" />
+
+**Static ACL configuration:**
+The goal is to permit only IT department PCs (192.168.1.10–192.168.1.29) to access the server and deny HR department PCs (192.168.1.30–192.168.1.49).
+
+Challenge:
+Standard ACLs work with wildcard masks, which only match power-of-2 blocks.
+The IT IP range (10–29) is not a single power-of-2 block, so it must be split into three separate blocks to match exactly without permitting extra IPs.
+
+**ACL Configuration:**
+```bash
+access-list 1 permit 192.168.1.10 0.0.0.5   # permits 10–15
+access-list 1 permit 192.168.1.16 0.0.0.7   # permits 16–23
+access-list 1 permit 192.168.1.24 0.0.0.5   # permits 24–29
+
+interface g0/0
+ip access-group 1 in
+```
+
+**Testing After ACL:**
+
+Ping is allowed only from IT IPs (10–29) and fails from blocked HR IPs (30–49).
+
+<img width="631" height="565" alt="12_after_acl_ping_hr" src="https://github.com/user-attachments/assets/f62e2343-d966-4d3c-a1af-ae85190d2900" />
+Destination host is unreachable for HR PCs.
+<img width="632" height="572" alt="12_after_acl_http" src="https://github.com/user-attachments/assets/abf6173a-2b2e-4d4b-bd8a-41a3f13ed773" />
+Request timed out to access HTTP server for HR PCs.
+
+Thus, standard ACL is configured and verified.
+
+- 
 **13. Create an extended ACL to block specific applications, such as HTTP or FTP traffic.Test the ACL rules by attempting to access blocked services.**
+  
+**Topology:**
+ - IT Department PCs: 192.168.2.10 – 192.168.2.29
+ - HR Department PCs: 192.168.2.30 – 192.168.2.49
+ - Server: 192.168.2.100
+ - Router: 2911
+ - Switch: 2960-24TT
+<img width="747" height="470" alt="13_topo" src="https://github.com/user-attachments/assets/7d284554-0e12-42bb-b6b2-30c992577753" />
+Topology reused from standard ACL setup.
+
+To configure extended ACL, the following conditions are determined:
+ - Allow HTTP (port 80) access only from HR PCs to the server.
+ - Allow FTP (port 21) access only from IT PCs to the server.
+ - Deny the opposite traffic.
+ - Permit all other traffic.
+
+**Extended ACL Configuration:**
+```bash
+enable
+conf t
+access-list 110 deny tcp 192.168.2.10 0.0.0.19 host 192.168.2.100 eq 80
+access-list 110 deny tcp 192.168.2.30 0.0.0.19 host 192.168.2.100 eq 21
+access-list 110 permit tcp 192.168.2.30 0.0.0.19 host 192.168.2.100 eq 80
+access-list 110 permit tcp 192.168.2.10 0.0.0.19 host 192.168.2.100 eq 21
+access-list 110 permit ip any any
+
+int g0/0
+ip access-group 110 in
+exit
+write memory
+```
+
+0.0.0.19 is the wildcard mask for 20 IP addresses in each department range. Extended ACLs allow filtering by protocol (TCP/UDP), port number, and source as well as destination IP.
+
+**Testing:**
+  
 **14. Try Static NAT, Dynamic NAT and PAT to translate IPs**
 **15. Download iperf in laptop/phone and make sure they are in same network. Try different iperf commands with top, udp, birectional, reverse, multicast, parallel options and analyze the bandwidth and rate of transmission, delay, jitter etc.**
