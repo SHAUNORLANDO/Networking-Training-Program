@@ -701,6 +701,102 @@ All the pings are successful, hence Inter-VLAN routing is done successfully with
 
 **11. Implement ACLs to restrict traffic based on source and destination ports.Test rules by simulating legitimate and unauthorized traffic.**
 
+**Topology:**
+The network consists of:
+ - 2 PCs (PC0, PC1)
+ - 1 Switch
+ - 1 Router (2911)
+ - 1 Server
+
+<img width="626" height="272" alt="11_topo" src="https://github.com/user-attachments/assets/bd30bb60-20b9-4296-b63b-26a9b77ddeb1" />
+
+**IP Addressing:**
+| Device            | IP Address     | Subnet Mask     | Gateway       |
+|------------------|---------------|-----------------|--------------|
+| PC0              | 192.168.1.2   | 255.255.255.0   | 192.168.1.1  |
+| PC1              | 192.168.1.3   | 255.255.255.0   | 192.168.1.1  |
+| Router (g0/0)    | 192.168.1.1   | 255.255.255.0   | —            |
+| Router (g0/1)    | 192.168.2.1   | 255.255.255.0   | —            |
+| Server           | 192.168.2.100 | 255.255.255.0   | 192.168.2.1  |
+
+**Router Configuration:**
+```bash
+enable
+configure terminal
+
+interface g0/0
+ip address 192.168.1.1 255.255.255.0
+no shutdown
+exit
+
+interface g0/1
+ip address 192.168.2.1 255.255.255.0
+no shutdown
+exit
+```
+
+**Server Configuration:**
+HTTP service: ON
+FTP service: ON
+
+**Testing Before ACL:**
+
+From PC:
+ - Ping to server is Successful
+ - HTTP access is Successful
+ - FTP access is Successful
+
+<img width="637" height="567" alt="11_before_acl_ftp" src="https://github.com/user-attachments/assets/34bba655-2cf3-49f0-9bd1-0443aebac133" />
+
+<img width="628" height="567" alt="11_before_acl_http" src="https://github.com/user-attachments/assets/d86ad300-37bd-4759-8eec-0517705a819a" />
+
+**ACL Configuration portwise**
+ - To allow legitimate HTTP traffic (port 80)
+ - To block unauthorized FTP traffic (port 21)
+```bash
+access-list 101 permit tcp any host 192.168.2.100 eq 80
+access-list 101 deny tcp any host 192.168.2.100 eq 21
+access-list 101 permit ip any any
+
+interface g0/0
+ip access-group 101 in
+```
+
+Access Lists Command:
+| Part | Meaning |
+|------|--------|
+| `access-list` | Command used to create an ACL rule |
+| `101` | ACL number (100–199 for Extended ACL) |
+| `permit` | Action to allow traffic (`deny` would block) |
+| `tcp` | Protocol (TCP used for HTTP, FTP, etc.) |
+| `any` | Source IP address (any device) |
+| `host 192.168.2.100` | Destination IP (specific server) |
+| `eq 80` | Port number (80 = HTTP) |
+
+**Testing After ACL:**
+HTTP (Port 80)	is Allowed<br>
+<img width="632" height="565" alt="11_after_acl_http" src="https://github.com/user-attachments/assets/881e70a3-3e5a-407b-9773-cbc6a6dbed9b" />
+
+FTP (Port 21) is	Blocked <br>
+<img width="380" height="223" alt="11_after_acl_ftp" src="https://github.com/user-attachments/assets/998d82f0-5ad5-4174-8752-a263d50aa26e" />
+
+Ping is	Allowed<br>
+<img width="457" height="221" alt="11_after_acl_ping" src="https://github.com/user-attachments/assets/729e351b-98b3-4cce-b2c9-f73e3b3c236c" />
+
+**Verification:**
+```bash
+show access-lists
+```
+<img width="497" height="111" alt="11_acl" src="https://github.com/user-attachments/assets/61869880-6fd9-4d3c-a960-f981dc2e0439" />
+
+Observed increasing match counters for rules
+Confirmed ACL is actively filtering traffic
+
+ Thus, ACL allows us to:
+ - Allow legitimate web traffic (HTTP)
+ - Block unauthorized FTP access
+ - Demonstrate traffic filtering based on port numbers
+
 **12. Configure a standard Access Control List (ACL) on a router to permit traffic from a specific IP range. Test connectivity to verify the ACL is working as intended.**
 **13. Create an extended ACL to block specific applications, such as HTTP or FTP traffic.Test the ACL rules by attempting to access blocked services.**
 **14. Try Static NAT, Dynamic NAT and PAT to translate IPs**
