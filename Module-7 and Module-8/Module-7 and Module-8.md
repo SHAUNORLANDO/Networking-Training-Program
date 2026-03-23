@@ -851,11 +851,13 @@ ip access-group 1 in
 Ping is allowed only from IT IPs (10–29) and fails from blocked HR IPs (30–49).
 
 <img width="631" height="565" alt="12_after_acl_ping_hr" src="https://github.com/user-attachments/assets/f62e2343-d966-4d3c-a1af-ae85190d2900" />
+<BR>
 Destination host is unreachable for HR PCs.
 <img width="632" height="572" alt="12_after_acl_http" src="https://github.com/user-attachments/assets/abf6173a-2b2e-4d4b-bd8a-41a3f13ed773" />
+<BR>
 Request timed out to access HTTP server for HR PCs.
 
-Thus, standard ACL is configured and verified.
+Thus, standard ACL is configured and verified. <BR>
 
 - 
 **13. Create an extended ACL to block specific applications, such as HTTP or FTP traffic.Test the ACL rules by attempting to access blocked services.**
@@ -867,11 +869,11 @@ Thus, standard ACL is configured and verified.
  - Router: 2911
  - Switch: 2960-24TT
 <img width="747" height="470" alt="13_topo" src="https://github.com/user-attachments/assets/7d284554-0e12-42bb-b6b2-30c992577753" />
-Topology reused from standard ACL setup.
+Topology same as standard ACL setup.
 
 To configure extended ACL, the following conditions are determined:
- - Allow HTTP (port 80) access only from HR PCs to the server.
- - Allow FTP (port 21) access only from IT PCs to the server.
+ - Allow HTTP (port 80) access only from IT PCs to the server.
+ - Allow FTP (port 21) access only from HR PCs to the server.
  - Deny the opposite traffic.
  - Permit all other traffic.
 
@@ -879,10 +881,10 @@ To configure extended ACL, the following conditions are determined:
 ```bash
 enable
 conf t
+access-list 110 permit tcp 192.168.2.10 0.0.0.19 host 192.168.2.100 eq 80
+access-list 110 deny tcp 192.168.2.10 0.0.0.19 host 192.168.2.100 eq 21
+access-list 110 permit tcp 192.168.2.30 0.0.0.19 host 192.168.2.100 eq 21
 access-list 110 deny tcp 192.168.2.10 0.0.0.19 host 192.168.2.100 eq 80
-access-list 110 deny tcp 192.168.2.30 0.0.0.19 host 192.168.2.100 eq 21
-access-list 110 permit tcp 192.168.2.30 0.0.0.19 host 192.168.2.100 eq 80
-access-list 110 permit tcp 192.168.2.10 0.0.0.19 host 192.168.2.100 eq 21
 access-list 110 permit ip any any
 
 int g0/0
@@ -894,6 +896,19 @@ write memory
 0.0.0.19 is the wildcard mask for 20 IP addresses in each department range. Extended ACLs allow filtering by protocol (TCP/UDP), port number, and source as well as destination IP.
 
 **Testing:**
-  
+IT dept can access HTTP service:<BR>
+<img width="633" height="567" alt="13_it_http" src="https://github.com/user-attachments/assets/5a524639-9692-4c81-a37c-b8b54eb20d5b" />
+<BR>
+IT dept cannot access FTP service:<BR>
+<img width="637" height="482" alt="13_it_ftp" src="https://github.com/user-attachments/assets/a7e51387-4555-4887-ac24-46471239b743" />
+<BR>
+HR dept can access FTP service:<BR>
+<img width="637" height="570" alt="13_hr_ftp" src="https://github.com/user-attachments/assets/5fcd32be-b2aa-421e-8221-7c39b035d74f" />
+<BR>
+HR dept cannot access HTTP service:<BR>
+<img width="637" height="566" alt="13_hr_http" src="https://github.com/user-attachments/assets/e5def095-2bba-44ce-8a79-03a7ab3ce9bb" />
+<BR>
+Hence, the ACL rules are tested and verified.
+
 **14. Try Static NAT, Dynamic NAT and PAT to translate IPs**
 **15. Download iperf in laptop/phone and make sure they are in same network. Try different iperf commands with top, udp, birectional, reverse, multicast, parallel options and analyze the bandwidth and rate of transmission, delay, jitter etc.**
