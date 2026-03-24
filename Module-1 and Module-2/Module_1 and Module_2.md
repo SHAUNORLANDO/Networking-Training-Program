@@ -144,8 +144,16 @@ enp0s3: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
 
 **6. Understand how to access remote system using (VNC viewer, Anydesk, teamviewer and remote desktop connections)**
 
-**Tools Studied:**
+- Installed remote software on both systems (Laptop and Phone).
+- Obtained IP address or ID from remote machine.
+- Entered IP/ID in client machine.
+- Authenticated using password.
+- Successfully accessed remote desktop interface.
+
+**Tools Explored:**
 1. VNC Viewer
+
+![Uploading vnc.jpeg…]()
 
 2. AnyDesk
 
@@ -157,11 +165,9 @@ enp0s3: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
 
 4. Remote Desktop Connection (RDP)
 
-- Installed remote software on both systems (Laptop and Phone).
-- Obtained IP address or ID from remote machine.
-- Entered IP/ID in client machine.
-- Authenticated using password.
-- Successfully accessed remote desktop interface.
+<img width="592" height="175" alt="remote" src="https://github.com/user-attachments/assets/dddab109-97ac-41cc-81f0-ce6992d92792" />
+
+RDP works only if the laptop has Windows Pro / Enterprise / Education
 
 **7. How to check your default gateway is reachable or not and understand about default gateway.**
 
