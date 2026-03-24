@@ -1,7 +1,7 @@
 **Networking Training program**
-**Module 3 and 4 assessment questions**
+**Module 3 and 4 Assessment**
 
-Tools you can use for below questions: VirtualBox with Linux VMs, GNS3, Cisco Packet Tracer, Wireshark etc. <br>
+**Tools you can use for below questions: VirtualBox with Linux VMs, GNS3, Cisco Packet Tracer, Wireshark etc.** <br>
 
 **Simulate a small network with switches and multiple devices. Use ping to generate traffic and observe the MAC address table of the switch. Capture packets using Wireshark to analyze Ethernet frames and MAC addressing.**
 
