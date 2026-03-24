@@ -111,10 +111,11 @@ show ip interface brief
 <br>
 All interfaces are `up/up`
 <br>
+
 **Ping Test:**
 <br>
 From PC0:
-```
+```bash
 ping 192.168.3.5
 ping 192.168.3.7
 ```
