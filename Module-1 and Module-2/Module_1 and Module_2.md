@@ -146,11 +146,18 @@ enp0s3: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
 
 **Tools Studied:**
 1. VNC Viewer
+
 2. AnyDesk
+
+<img width="1797" height="955" alt="anydesk" src="https://github.com/user-attachments/assets/bf71d66c-b527-4b9b-af67-72431931c67a" />
+
 3. TeamViewer
+
+![teamviewer](https://github.com/user-attachments/assets/ea77763c-202a-4bbf-aa5d-d1729b0d6a75)
+
 4. Remote Desktop Connection (RDP)
 
-- Installed remote software on both systems.
+- Installed remote software on both systems (Laptop and Phone).
 - Obtained IP address or ID from remote machine.
 - Entered IP/ID in client machine.
 - Authenticated using password.
@@ -211,8 +218,11 @@ iwconfig
 ```
 Output:
 ```bash
-
+lo        no wireless extensions.
+enp0s3    no wireless extensions.
 ```
+The reason for "no wireless extensions" is because the system doesn’t currently have a wireless (Wi-Fi) adapter recognized. VirtualBox usually provides only a virtual wired adapter (enp0s3) unless you specifically configure USB passthrough for a Wi-Fi dongle or bridge the host’s wireless card.
+
 To check speed:
 ```bash
 sudo ethtool enp0s3
