@@ -116,9 +116,8 @@ The connectivity between the devices was verified using the ping command through
 
 Started packet capture on the active network interface in Wireshark and applied the 'dhcp' filter.
 
-Tries to capture the DORA process packets by turning the Wi-Fi off and and, but couldnt capture the D and O packets. Only R and A packets were observed. 
-
-So, generated DHCP traffic by releasing and renewing the IP address using:
+**Issue faced:** Tried to capture the DORA process packets by turning the Wi-Fi OFF and ON, but couldnt capture the D and O packets. Only R and A packets were observed. 
+**Solution:** So, generated DHCP traffic by releasing and renewing the IP address.
 ```bash
 ipconfig /release
 ipconfig /renew
