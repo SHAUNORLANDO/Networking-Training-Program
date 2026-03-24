@@ -251,10 +251,10 @@ Logged in using router admin credentials. Navigated to: Connected Devices.
 **10. Explain how a DHCP server assigns IP addresses to devices in your network.**
 
 DHCP server assigns IP addresses through DORA Process: 
-        1. Discover – Client broadcasts a request for IP address.
-        2. Offer – DHCP server offers an available IP address.
-        3. Request – Client requests the offered IP address.
-        4. Acknowledge – Server confirms and assigns the IP address.
+ - Discover – Client broadcasts a request for IP address.
+ - Offer – DHCP server offers an available IP address.
+ - Request – Client requests the offered IP address.
+ - Acknowledge – Server confirms and assigns the IP address.
 
 
 **11. Using a terminal, connect to a remote machine via SSH and telnet.**
