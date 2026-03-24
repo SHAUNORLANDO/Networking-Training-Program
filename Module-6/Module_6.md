@@ -65,7 +65,7 @@ Each router connects to:
 | PC2      | FastEthernet0    | 192.168.3.5      | 255.255.255.0    | 192.168.3.3      |
 | PC3      | FastEthernet0    | 192.168.3.7      | 255.255.255.0    | 192.168.3.3      |
 
-**Router Configuration:**
+**Router Configuration:**<br>
 Router0:
 ```
 enable
@@ -93,7 +93,7 @@ ip address 192.168.3.3 255.255.255.0
 no shutdown
 ```
 
-**Static Route Configuration:**
+**Static Route Configuration:**<br>
 Router0:
 ```
 ip route 192.168.3.0 255.255.255.0 192.168.1.4
@@ -110,9 +110,9 @@ show ip interface brief
 <img width="576" height="205" alt="static_route_ip" src="https://github.com/user-attachments/assets/506ec876-f9ac-4221-a100-973d248f3034" />
 <br>
 All interfaces are `up/up`
-
+<br>
 **Ping Test:**
-
+<br>
 From PC0:
 ```
 ping 192.168.3.5
@@ -130,7 +130,7 @@ Example: <br>
 <img width="621" height="557" alt="static_route_ping" src="https://github.com/user-attachments/assets/3f8db8f6-2cd6-4835-81ef-9f8c602d0f6b" />
 <br>
 
-**Traceroute Test:**
+**Traceroute Test:**<br>
 From PC1:
 ```
 tracert 192.168.3.7
@@ -164,10 +164,6 @@ To create 4 subnets, 2 bits are borrowed from the host portion. (2^2 = 4 subnets
 | Subnet 4 | 10.0.0.192 | 10.0.0.193 | 10.0.0.254 | 10.0.0.255 |
 
 Each subnet supports 62 usable host addresses.
-
----
-
-## **Packet Tracer Implementation:**
 
 The network devices were connected in the following topology:
  - 2 Routers
@@ -275,8 +271,6 @@ All devices were assigned valid IP addresses, and communication between differen
 Identify the class of each IP address.
 Determine if it is private or public.
 Explain how NAT would handle a private IP when accessing the internet.**
-
-# IP Address Classification and NAT Explanation
 
 Given IP Addresses: 
 - 192.168.10.5  
