@@ -112,8 +112,6 @@ The connectivity between the devices was verified using the ping command through
 
 **4) Use Wireshark to capture DHCP Discover, Offer, Request, and Acknowledge messages and explain the process.**
 
-# DHCP DORA Process Analysis using Wireshark
-
 Started packet capture on the active network interface in Wireshark and applied the 'dhcp' filter.
 
 **Issue faced:** Tried to capture the DORA process packets by turning the Wi-Fi OFF and ON, but couldnt capture the D and O packets. Only R and A packets were observed. 
