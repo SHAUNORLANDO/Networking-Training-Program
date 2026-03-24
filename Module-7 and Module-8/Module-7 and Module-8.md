@@ -911,4 +911,135 @@ HR dept cannot access HTTP service:<BR>
 Hence, the ACL rules are tested and verified.
 
 **14. Try Static NAT, Dynamic NAT and PAT to translate IPs**
+
+**Topology:**
+- 1 Router
+- 1 Switch
+- 2 PCs (Internal Network)
+- 1 Server (External Network)
+
+<img width="675" height="272" alt="14_topo" src="https://github.com/user-attachments/assets/2fd1e5e5-32da-4344-bc36-e34625719223" />
+
+**IP Addressing:**
+| Device | Interface        | IP Address     | Subnet Mask     |
+|--------|-----------------|----------------|-----------------|
+| Router | Gig0/0 (Inside)  | 192.168.1.1    | 255.255.255.0   |
+| Router | Gig0/1 (Outside) | 200.0.0.1      | 255.255.255.0   |
+| PC0    | -               | 192.168.1.2   | 255.255.255.0   |
+| PC1    | -               | 192.168.1.3   | 255.255.255.0   |
+| Server | -               | 200.0.0.2      | 255.255.255.0   |
+
+To configure and verify:
+- Static NAT (One-to-One Mapping)
+- Dynamic NAT (Pool-Based Mapping)
+- PAT (Overloading)
+
+**Static NAT Configuration:**
+```bash
+enable
+conf t
+
+ip nat inside source static 192.168.1.2 200.0.0.2
+
+int g0/0
+ip nat inside
+exit
+
+int g0/1
+ip nat outside
+exit
+
+end
+write memory
+```
+
+**Verify:**
+```bash
+show ip nat translations
+```
+
+<img width="616" height="116" alt="14_static" src="https://github.com/user-attachments/assets/f8367c55-9ebc-4818-b4f6-5a8018de8bcc" />
+
+ - Maps one private IP to one public IP permanently
+ - Used for servers that need external access
+
+**Dynamic NAT Configuration:**
+```bash
+enable
+conf t
+
+access-list 1 permit 192.168.1.0 0.0.0.255
+ip nat pool POOL1 200.0.0.3 200.0.0.5 netmask 255.255.255.0
+ip nat inside source list 1 pool POOL1
+
+int g0/0
+ip nat inside
+exit
+
+int g0/1
+ip nat outside
+exit
+
+end
+write memory
+```
+
+**Check:**
+```bash
+show ip nat translations
+```
+
+<img width="617" height="113" alt="14_dynamic" src="https://github.com/user-attachments/assets/ce3f532f-b9f8-4a6b-a149-c49a3b5ed104" />
+
+ - Uses a pool of public IPs
+ - Each device gets a temporary public IP
+ - Limited by pool size
+
+**PAT (Port Address Translation):**
+```bash
+enable
+conf t
+
+access-list 1 permit 192.168.1.0 0.0.0.255
+ip nat inside source list 1 interface FastEthernet0/1 overload
+
+int g0/0
+ip nat inside
+exit
+
+int g0/1
+ip nat outside
+exit
+
+end
+write memory
+```
+
+**Check:**
+```bash
+show ip nat translations
+```
+
+<img width="617" height="117" alt="14_pat" src="https://github.com/user-attachments/assets/34d5e957-9949-4387-a497-0a7150304f80" />
+
+ - Multiple devices share one public IP
+ - Differentiation done using port numbers
+ - Most commonly used for internet access
+ - 
+**Testing:**
+Ping external server from PCs
+
+<img width="632" height="672" alt="14_ping" src="https://github.com/user-attachments/assets/c00a4676-e220-4b19-bcb5-67cf2f456250" />
+
+**Differences Between NAT Types:**
+
+| Feature               | Static NAT     | Dynamic NAT    | PAT              |
+|----------------------|---------------|----------------|------------------|
+| Mapping              | One-to-One     | One-to-Pool    | Many-to-One      |
+| Public IP Requirement| High           | Medium         | Low              |
+| Port Usage           | No             | No             | Yes              |
+| Use Case             | Hosting servers| Limited users  | Internet access  |
+
+Successfully configured and verified Static NAT, Dynamic NAT and PAT.
+
 **15. Download iperf in laptop/phone and make sure they are in same network. Try different iperf commands with top, udp, birectional, reverse, multicast, parallel options and analyze the bandwidth and rate of transmission, delay, jitter etc.**
