@@ -404,12 +404,6 @@ On Router:
 show ip nat translations
 ```
 
-Expected output:
-```
-Inside global    Inside local      Outside local     Outside global
-200.0.0.1        192.168.1.2       200.0.0.2         200.0.0.2
-```
-
 Wireshark Analysis: 
    1. Open Simulation Mode in Packet Tracer
    2. Filter: ICMP
