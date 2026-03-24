@@ -1042,4 +1042,105 @@ Ping external server from PCs
 
 Successfully configured and verified Static NAT, Dynamic NAT and PAT.
 
-**15. Download iperf in laptop/phone and make sure they are in same network. Try different iperf commands with top, udp, birectional, reverse, multicast, parallel options and analyze the bandwidth and rate of transmission, delay, jitter etc.**
+**15. Download iperf in laptop/phone and make sure they are in same network. Try different iperf commands with tcp, udp, birectional, reverse, multicast, parallel options and analyze the bandwidth and rate of transmission, delay, jitter etc.**
+
+**Requirements:**
+- Laptop (iPerf3 installed)
+- Mobile phone with iPerf app
+- Same WiFi network connection
+
+- Both laptop and mobile phone were connected to the same wireless network.
+- The laptop was configured as the iPerf server.
+- The phone/laptop acted as the client.
+
+Found the IP address of the laptop using:
+```bash
+ipconfig
+```
+<img width="947" height="792" alt="15_ipconfig" src="https://github.com/user-attachments/assets/1fc0ab5d-937f-4c79-9d62-f943855bb882" />
+
+Started the iPerf server:
+```bash
+iperf3 -s
+```
+<img width="1136" height="582" alt="15_initialize" src="https://github.com/user-attachments/assets/a129417d-9a16-4d78-b815-30d1455606e5" />
+
+Executed different iPerf commands from client side and analyzed the output metrics.
+**iPerf Commands Used:**
+TCP Test:
+```bash
+iperf3 -c 192.168.1.6
+```
+<img width="1352" height="492" alt="15_tcp" src="https://github.com/user-attachments/assets/62a93b1c-342b-443a-a05d-0429cba369d9" />
+
+UDP Test:
+```bash
+iperf3 -c 192.168.1.6 -u -b 10M
+```
+<img width="1282" height="435" alt="15_udp" src="https://github.com/user-attachments/assets/0249b8c3-33a0-4164-bed5-2a0e5d1c7607" />
+
+Reverse Mode:
+```bash
+iperf3 -c 192.168.1.6 -R
+```
+<img width="1310" height="525" alt="15_reverse" src="https://github.com/user-attachments/assets/fc7d4fbe-6bf8-4d12-92bc-30794fa3cdbe" />
+
+Bidirectional Test:
+```bash
+iperf3 -c 192.168.1.6
+iperf3 -c 192.168.1.6 -R
+```
+<img width="1027" height="912" alt="15_bidir" src="https://github.com/user-attachments/assets/fe23d6a8-6187-4b5d-b329-4e9de359d683" />
+
+Since the --bidir option was not supported in the installed version of iPerf, bidirectional communication was analyzed by performing both forward (client-to-server) and reverse (server-to-client) tests separately.
+
+Parallel Streams:
+```bash
+iperf3 -c 192.168.1.X -P 5
+```
+<img width="1087" height="817" alt="15_parallel_1" src="https://github.com/user-attachments/assets/2b930410-ccbd-4ecb-ae14-a71d892f14d2" />
+<img width="742" height="970" alt="15_parallel_2" src="https://github.com/user-attachments/assets/21987885-e9ee-4276-b99b-e677daef459d" />
+
+Multicast Test:
+```bash
+iperf3 -c 224.1.1.1 -u -b 5M
+```
+However, the following error was encountered: "unable to connect to server: Cannot assign requested address"
+
+This indicates that the local network environment does not support multicast communication. This limitation is commonly observed in WiFi networks and standard system configurations where multicast routing (IGMP) is not enabled. Hence, multicast testing could not be successfully performed in this setup.
+
+![WhatsApp Image 2026-03-24 at 15 43 26 (1)](https://github.com/user-attachments/assets/9dbbc88c-a4d9-49a2-a395-dd44201cdc00)
+![WhatsApp Image 2026-03-24 at 15 43 26 (2)](https://github.com/user-attachments/assets/222ac8f4-4a4a-4fc7-b0d8-cd47368a1b46)
+![WhatsApp Image 2026-03-24 at 15 43 26](https://github.com/user-attachments/assets/6c9baed8-26ad-41b0-a986-d0e20551f50f)
+
+**Parameters Observed:**
+
+| Parameter        | Description                              |
+|-----------------|------------------------------------------|
+| Bandwidth       | Data transfer rate (Mbps)                |
+| Transfer        | Total data transmitted                   |
+| Jitter          | Variation in packet delay (UDP)          |
+| Packet Loss     | Number of lost packets                   |
+| Retransmissions | TCP packet re-sending                    |
+| Delay           | Time taken for packet transmission       |
+
+**Observations:**
+ - TCP provided reliable communication with retransmissions when needed
+ - UDP showed packet loss and jitter, useful for real-time applications
+ - Reverse mode showed variation in upload and download speeds
+ - Parallel streams increased bandwidth utilization
+ - Multicast enabled communication with multiple receivers
+ - Bidirectional testing showed network behavior in both directions
+   
+**Comparative Analysis:**
+
+| Test Type     | Protocol | Key Metrics Observed        | Performance Insight              |
+|---------------|----------|-----------------------------|---------------------------------|
+| TCP           | TCP      | Bandwidth, Retransmissions  | Reliable but slightly slower    |
+| UDP           | UDP      | Jitter, Packet Loss         | Faster but less reliable        |
+| Reverse       | TCP      | Download Speed              | Shows asymmetry in network      |
+| Bidirectional | TCP      | Upload & Download           | Network load handling           |
+| Parallel      | TCP      | Bandwidth Increase          | Better utilization of network   |
+| Multicast     | UDP      | Group Transmission          | Efficient for multiple clients  |
+
+Successfully analyzed network performance using iPerf by executing various commands and observed key parameters such as bandwidth, jitter, delay, and packet loss under different conditions.
