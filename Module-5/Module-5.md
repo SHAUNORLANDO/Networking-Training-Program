@@ -66,28 +66,17 @@ Checked the arp table after pining the gateway from the victim to check the init
 
 Configured the default gateway of the victim as the attacker's IP address (192.168.1.100) to simulate spoofing.
 
-Again check the arp table:
+Again check the arp table:<br>
 <img width="457" height="73" alt="2_3" src="https://github.com/user-attachments/assets/d8d502ad-67e8-4161-9376-d7f41a92b991" />
 <br>
 When a device on a network receives a malicious ARP response, it does not verify the authenticity of the ARP message.
 
 **Observed Behavior:**
-**ARP Table Update Without Verification**
-   - The device updates its ARP cache with the received IP-to-MAC mapping, even if it is incorrect.
-   - This allows an attacker to associate their MAC address with another device’s IP (e.g., gateway).
-**Traffic Redirection**
-   - The victim starts sending data packets to the attacker instead of the actual destination.
-   - This leads to incorrect routing of network traffic.
-**Man-in-the-Middle Possibility**
-   - The attacker can intercept, monitor, or modify the data being transmitted between devices.
-   - Communication appears normal to the victim, making the attack hard to detect.
-**Packet Loss or Network Disruption**
-   - If the attacker does not forward the packets, communication may fail completely.
-   - This results in denial of service-like behavior.
-**Duplicate or Abnormal ARP Entries**
-   - Multiple IP addresses may map to the same MAC address in the ARP table.
-   - This is a key indicator of ARP spoofing.
-
+ - **ARP Table Update Without Verification:** The device updates its ARP cache with the received IP-to-MAC mapping, even if it is incorrect. This allows an attacker to associate their MAC address with another device’s IP (e.g., gateway).
+ - **Traffic Redirection:** The victim starts sending data packets to the attacker instead of the actual destination. This leads to incorrect routing of network traffic.
+ - **Man-in-the-Middle Possibility:** The attacker can intercept, monitor, or modify the data being transmitted between devices. Communication appears normal to the victim, making the attack hard to detect.
+ - **Packet Loss or Network Disruption:** If the attacker does not forward the packets, communication may fail completely. This results in denial of service-like behavior.
+ - **Duplicate or Abnormal ARP Entries:** Multiple IP addresses may map to the same MAC address in the ARP table. This is a key indicator of ARP spoofing.
 
 **3) Manually configure static IPs on the client devices(like Pc or your mobile phone) and verify connectivity using ping.**
 
