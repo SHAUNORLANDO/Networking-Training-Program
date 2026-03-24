@@ -67,7 +67,7 @@ The issue was resolved by restoring the original MAC address of the interface. A
 <img width="646" height="232" alt="11" src="https://github.com/user-attachments/assets/96a51cc4-d3fe-401c-8358-3383f6708c1d" />
 <br>
 
-**Troubleshoot Ethernet Communication with ping and traceroute -> Using cisco packet tracer:**
+**Troubleshoot Ethernet Communication with ping and traceroute -> Using cisco packet tracer:** <br>
 **Create a simple LAN setup with two Linux machines connected via a switch.** <br>
 <img width="490" height="142" alt="12" src="https://github.com/user-attachments/assets/9727c999-09d5-411d-a55c-3e46cb3f3b34" />
 <br>
