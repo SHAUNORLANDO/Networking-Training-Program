@@ -1,17 +1,16 @@
 **Networking Training program**
 **Module 1 and 2 assessment questions.**
 
-1. Consider a case, a folder has multiple files and how would copy it to destination machine path (Try using SCP, cp options in Linux)
+**1. Consider a case, a folder has multiple files and how would copy it to destination machine path (Try using SCP, cp options in Linux)**
 
 ```bash
 scp -r Module_1 shaun@192.168.1.9:/home/shaun/Networking_Assessments/Module_1_secure_copy
 ```
-
 ```bash
 cp -r Module_1 Module_1_copy
 ```
 
-2. Host a FTP and SFTP server and try PUT and GET operations.
+**2. Host a FTP and SFTP server and try PUT and GET operations.**
 
 **FTP**
 ```bash
@@ -60,7 +59,7 @@ ftp.txt                                       100%    9     1.8KB/s   00:00
 ```
 
 
-3. Explore with Wireshark/TCP-dump/cisco packet tracer tools and learn about packets filters.
+**3. Explore with Wireshark/TCP-dump/cisco packet tracer tools and learn about packets filters.**
 
 **WIRESHARK**
 Packet Capture and Network Traffic Analysis
@@ -94,7 +93,7 @@ sudo tcpdump -i enp0s3 -w capture.pcap
 Worked with packet capture and analysis
 <img width="277" height="177" alt="cisco packet tracer" src="https://github.com/user-attachments/assets/0995a774-80af-400d-93b6-6ea2c63b0280" />
 
-4. Understand linux utility commands like - ping, arp (Understand each params from ifconfig output)
+**4. Understand linux utility commands like - ping, arp (Understand each params from ifconfig output)**
 **PING**
 Command:
 ```bash
@@ -135,15 +134,15 @@ enp0s3: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
         TX packets 15778  bytes 1221154 (1.2 MB)
         TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
 ```
-5. Understand what happens when duplicate IPs configured in a network.
+**5. Understand what happens when duplicate IPs configured in a network.**
  
-1. Network instability occurs.
-2. Ping responses become inconsistent.
-3. Packet loss may occur.
-4. The ARP table keeps changing.
-5. The system may display an "IP address conflict" warning.
+        1) Network instability occurs.
+        2) Ping responses become inconsistent.
+        3) Packet loss may occur.
+        4) The ARP table keeps changing.
+        5) The system may display an "IP address conflict" warning.
 
-6. Understand how to access remote system using (VNC viewer, Anydesk, teamviewer and remote desktop connections)
+**6. Understand how to access remote system using (VNC viewer, Anydesk, teamviewer and remote desktop connections)**
 
 **Tools Studied:**
 1. VNC Viewer
@@ -157,7 +156,7 @@ enp0s3: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
 - Authenticated using password.
 - Successfully accessed remote desktop interface.
 
-7. How to check your default gateway is reachable or not and understand about default gateway.
+**7. How to check your default gateway is reachable or not and understand about default gateway.**
 
 To find default gateway:
 ```bash
@@ -185,7 +184,7 @@ PING 192.168.1.1 (192.168.1.1) 56(84) bytes of data.
 rtt min/avg/max/mdev = 2.629/4.691/6.882/1.738 ms
 ```
 
-8. Check iwconfig/ifconfig to understand in detail about network interfaces (check about interface speed, MTU and other parameters)
+**8. Check iwconfig/ifconfig to understand in detail about network interfaces (check about interface speed, MTU and other parameters)**
 
 **IFCONFIG**
 Command:
@@ -223,7 +222,7 @@ To check MTU:
 ip link show
 ```
 
-9. Log in to your home router's web interface (usually at 192.168.1.1 or 192.168.0.1) and check the connected devices list.
+**9. Log in to your home router's web interface (usually at 192.168.1.1 or 192.168.0.1) and check the connected devices list.**
 Checked default gateway using:
 ```bash
 ip route
@@ -236,9 +235,10 @@ Opened web browser and entered:
 ```bash
 http://192.168.1.1
 ```
-Logged in using router admin credentials. Navigated to: Connected Devices / DHCP Clients List section.
+Logged in using router admin credentials. Navigated to: Connected Devices.
+<img width="1107" height="907" alt="rltech" src="https://github.com/user-attachments/assets/5b9e97c6-2f21-44a3-a14f-3b10bd8a0179" />
 
-10. Explain how a DHCP server assigns IP addresses to devices in your network.
+**10. Explain how a DHCP server assigns IP addresses to devices in your network.**
 
 DHCP server assigns IP addresses through DORA Process: 
 1. Discover – Client broadcasts a request for IP address.
