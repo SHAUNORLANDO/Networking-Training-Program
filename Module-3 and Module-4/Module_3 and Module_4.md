@@ -69,9 +69,11 @@ The issue was resolved by restoring the original MAC address of the interface. A
 
 **Troubleshoot Ethernet Communication with ping and traceroute -> Using cisco packet tracer:** <br>
 **Create a simple LAN setup with two Linux machines connected via a switch.** <br>
+Topology is created as below:<br>
 <img width="490" height="142" alt="12" src="https://github.com/user-attachments/assets/9727c999-09d5-411d-a55c-3e46cb3f3b34" />
 <br>
 **Ping from one machine to the other. If it fails, use ifconfig to ensure the IP addresses are configured correctly.** <br>
+The IP addresses for each PC was configured manually and checked using `ifconfig` and ping was made successful.<br>
 <img width="632" height="567" alt="13" src="https://github.com/user-attachments/assets/ac30db81-8e6d-4bbd-ae17-b9a2151d15f6" />
 <br>
 **Use traceroute to identify where the packets are being dropped if the ping fails.** <br>
