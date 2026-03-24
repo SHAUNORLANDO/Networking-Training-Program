@@ -352,14 +352,7 @@ ip address 200.0.0.1 255.255.255.0
 ip nat outside
 no shutdown
 ```
-**Configure NAT:**
-```bash
-access-list 1 permit 192.168.1.0 0.0.0.255
-```
-**Enable NAT Overload (PAT):**
-```bash
-ip nat inside source list 1 interface fastEthernet0/1 overload
-```
+
 **Test NAT from PC0 and PC1:**
 ```bash
 ping 200.0.0.2
