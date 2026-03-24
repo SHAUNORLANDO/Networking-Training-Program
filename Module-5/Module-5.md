@@ -374,7 +374,7 @@ Output:<br>
 show ip nat translations
 ```
 Output:<br>
-<img width="565" height="308" alt="nat_router" src="https://github.com/user-attachments/assets/497f9dc7-856b-40c8-b889-13550c93e863" />
+<img width="618" height="107" alt="7" src="https://github.com/user-attachments/assets/0f12df4a-3955-41b6-aa92-c026cb3dca45" />
 <br>
 
 Simulation of Traffic in Packet Tracer:
