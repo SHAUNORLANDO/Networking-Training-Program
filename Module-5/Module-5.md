@@ -57,7 +57,7 @@ In this capture, the device **192.168.1.1** sends an ARP request to find the MAC
 - 1 Switch  
 - 3 PCs
 
-Created a LAN using one switch and three PCs in Cisco Packet Tracer ans assigned IP addresses:
+Created a LAN using one switch and three PCs in Cisco Packet Tracer and assigned IP addresses:
    - Victim → 192.168.1.2  
    - Attacker → 192.168.1.100  
    - Gateway → 192.168.1.1  
