@@ -153,7 +153,8 @@ enp0s3: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
 **Tools Explored:**
 1. VNC Viewer
 
-![Uploading vnc.jpeg…]()
+![vnc](https://github.com/user-attachments/assets/01d8d805-70f5-4d7b-9e39-1603d9fc9e4e)
+
 
 2. AnyDesk
 
