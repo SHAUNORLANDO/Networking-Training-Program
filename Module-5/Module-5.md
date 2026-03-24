@@ -51,7 +51,7 @@ In this capture, the device **192.168.1.1** sends an ARP request to find the MAC
 
 ---
 
-2) Using Packet Tracer, simulate an ARP spoofing attack. Analyze the behavior of devices on the network when they receive a malicious ARP response.
+**2) Using Packet Tracer, simulate an ARP spoofing attack. Analyze the behavior of devices on the network when they receive a malicious ARP response.**
 
 **Network Topology:**
 - 1 Switch  
@@ -89,7 +89,7 @@ When a device on a network receives a malicious ARP response, it does not verify
    - This is a key indicator of ARP spoofing.
 
 
-3) Manually configure static IPs on the client devices(like Pc or your mobile phone) and verify connectivity using ping.
+**3) Manually configure static IPs on the client devices(like Pc or your mobile phone) and verify connectivity using ping.**
 
 The following static IP configuration was used for the PC:
 
@@ -119,7 +119,7 @@ The connectivity between the devices was verified using the ping command through
 ![IP_PING](ip_ping.png)
 
 
-4) Use Wireshark to capture DHCP Discover, Offer, Request, and Acknowledge messages and explain the process.
+**4) Use Wireshark to capture DHCP Discover, Offer, Request, and Acknowledge messages and explain the process.**
 
 # DHCP DORA Process Analysis using Wireshark
 
@@ -165,9 +165,9 @@ The DHCP Discover, Offer, Request, and Acknowledge packets were successfully cap
  
  ---
 
-5) Given an IP address range of 192.168.1.0/24, divide the network into 4 subnets.
+**5) Given an IP address range of 192.168.1.0/24, divide the network into 4 subnets.
 Task: Manually calculate the new subnet mask and the range of valid IP addresses for each subnet.
-Assign IP addresses from these subnets to devices in Cisco Packet Tracer and verify connectivity using ping between them.
+Assign IP addresses from these subnets to devices in Cisco Packet Tracer and verify connectivity using ping between them.**
 
 **Given Network Address:** 192.168.1.0/24
 **Subnet Mask:** 255.255.255.0
@@ -279,9 +279,9 @@ Successful replies confirm that routing between different subnets is working cor
 
 ---
 
-6) You are given three IP addresses: 10.1.1.1, 172.16.5.10, and 192.168.1.5.
+**6) You are given three IP addresses: 10.1.1.1, 172.16.5.10, and 192.168.1.5.
 Task: Identify the class of each IP address (Class A, B, or C). What is the default subnet mask for each class?
-Provide the range of IP addresses for each class.
+Provide the range of IP addresses for each class.**
 
 **Given IP Addresses:**
 1. 10.1.1.1  
@@ -320,9 +320,9 @@ The default subnet mask for Class C is **255.255.255.0**.
 
 ---
 
-7) In Cisco Packet Tracer, create a small network with multiple devices (e.g., 2 PCs and a router). Use private IP addresses (e.g., 192.168.1.x) on the PCs and configure the router to perform NAT to allow the PCs to access the internet.
+**7) In Cisco Packet Tracer, create a small network with multiple devices (e.g., 2 PCs and a router). Use private IP addresses (e.g., 192.168.1.x) on the PCs and configure the router to perform NAT to allow the PCs to access the internet.
 Task: Test the NAT configuration by pinging an external IP address from the PCs and capture the traffic using Wireshark.
-What is the source IP address before and after NAT?
+What is the source IP address before and after NAT?**
 
 Created a network with:
   - 2 PCs (Private IP: 192.168.1.x)
