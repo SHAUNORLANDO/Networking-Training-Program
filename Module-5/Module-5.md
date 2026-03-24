@@ -53,8 +53,6 @@ In this capture, the device **192.168.1.1** sends an ARP request to find the MAC
 
 2) Using Packet Tracer, simulate an ARP spoofing attack. Analyze the behavior of devices on the network when they receive a malicious ARP response.
 
-# ARP Spoofing Simulation using Packet Tracer
-
 **Network Topology:**
 - 1 Switch  
 - 3 PCs
