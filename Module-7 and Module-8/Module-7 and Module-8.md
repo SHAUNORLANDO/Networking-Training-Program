@@ -565,8 +565,9 @@ interface fa0/24
 switchport mode trunk
 ```
 
-**Ping test between VLAN 10 and VLAN 20:**
+**Ping test between VLAN 10 and VLAN 20:** <br>
 <img width="472" height="208" alt="9_ping_fail" src="https://github.com/user-attachments/assets/40e07776-ae93-4d30-afa1-1b7b436a53af" />
+<br>
 The ping test between different VLANs fails.
 
 **Troubleshooting:**
@@ -678,7 +679,7 @@ switchport access vlan 20
 enable
 configure terminal
 
-interface fa0/0
+interface g0/0
 ip address 192.168.10.1 255.255.255.0
 no shutdown
 exit
