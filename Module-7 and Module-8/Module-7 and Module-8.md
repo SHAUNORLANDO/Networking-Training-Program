@@ -388,7 +388,7 @@ ip default-gateway 192.168.99.1
 line vty 0 4
 password cisco
 login
-transport input telnet ssh
+transport input telnet
 ```
 
 ### SSH
