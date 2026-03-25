@@ -265,6 +265,7 @@ end
 write memory
 ```
 <img width="545" height="192" alt="6 3" src="https://github.com/user-attachments/assets/27e12769-313d-4120-9a76-c1ef22ce8032" />
+<br>
 Switch1:
 ```bash
 enable
