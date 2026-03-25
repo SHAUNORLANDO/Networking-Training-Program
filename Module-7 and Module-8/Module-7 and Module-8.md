@@ -284,6 +284,7 @@ write memory
 ```
 <img width="542" height="188" alt="6 4" src="https://github.com/user-attachments/assets/ba4c5993-cc1b-400a-9c1d-b6cd27bea455" />
 <br>
+
 **Create VLAN Mismatch:**
 Changed native VLAN on only Switch1:
 ```bash
