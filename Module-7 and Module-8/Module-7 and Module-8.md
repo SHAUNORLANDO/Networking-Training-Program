@@ -338,14 +338,14 @@ Topology:
 
 <img width="815" height="442" alt="7_admin" src="https://github.com/user-attachments/assets/c0ccc058-a5e5-4c19-8a9d-325e33bd982a" />
 
-**IP Addressing:**
-VLAN 10:
+**IP Addressing:**<br>
+VLAN 10:<br>
 - PC0 → 192.168.10.2
-- PC1 → 192.168.10.3
-VLAN 20:
+- PC1 → 192.168.10.3<br>
+VLAN 20:<br>
 - PC2 → 192.168.20.2
-- PC3 → 192.168.20.3
-VLAN 99 (Management):
+- PC3 → 192.168.20.3<br>
+VLAN 99 (Management):<br>
 - Switch0 → 192.168.99.1
 - Switch1 → 192.168.99.2
 - Admin PC → 192.168.99.10
