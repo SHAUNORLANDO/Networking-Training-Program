@@ -248,7 +248,7 @@ Communication within same VLAN is Successful but between different VLANs failed:
 - Mismatch can cause network issues and security vulnerabilities
 
 **Configuring Native VLAN**
-
+<br>
 Switch0:
 ```bash
 enable
@@ -266,6 +266,7 @@ write memory
 ```
 <img width="545" height="192" alt="6 3" src="https://github.com/user-attachments/assets/27e12769-313d-4120-9a76-c1ef22ce8032" />
 <br>
+
 Switch1:
 ```bash
 enable
@@ -282,7 +283,7 @@ end
 write memory
 ```
 <img width="542" height="188" alt="6 4" src="https://github.com/user-attachments/assets/ba4c5993-cc1b-400a-9c1d-b6cd27bea455" />
-
+<br>
 **Create VLAN Mismatch:**
 Changed native VLAN on only Switch1:
 ```bash
