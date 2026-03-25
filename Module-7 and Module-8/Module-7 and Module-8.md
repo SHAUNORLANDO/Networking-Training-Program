@@ -143,7 +143,6 @@ Each line in the output represents a hop.
 - Some intermediate hops showed "Request timed out". This does not indicate a network failure. It implies that those routers are configured to block or ignore ICMP requests due to security or firewall settings. Even though these hops did not respond, the final destination was reached successfully, confirming that the network path is functioning properly.
 - Some hops may show `* * *`, indicating no response due to firewall or security restrictions.
 - Using `-d` option speeds up the process by skipping DNS resolution.
-- Using `-d` option speeds up the process by skipping DNS resolution.
 - Using `-h` option limits the maximum number of hops (routers) the traceroute will check.
 
 **Linux execution:**
